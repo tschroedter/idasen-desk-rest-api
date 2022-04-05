@@ -62,11 +62,11 @@ namespace Idasen.BluetoothLE.Tests.ServicesDiscovery
         }
 
         [AutoDataTestMethod]
-        public void DeviceId_ForInvoked_Instance(
+        public void Id_ForInvoked_Instance(
             Device                             sut,
             [Freeze] IBluetoothLeDeviceWrapper wrapper)
         {
-            sut.DeviceId
+            sut.Id
                .Should()
                .Be(wrapper.DeviceId);
         }
