@@ -3,6 +3,7 @@ using Castle.DynamicProxy ;
 using Idasen.Aop.Interfaces ;
 using JetBrains.Annotations ;
 using Serilog ;
+// ReSharper disable UnusedMember.Global
 
 namespace Idasen.Aop.Aspects
 {

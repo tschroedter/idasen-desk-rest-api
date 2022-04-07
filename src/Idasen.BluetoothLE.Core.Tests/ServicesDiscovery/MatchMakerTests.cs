@@ -22,7 +22,7 @@ namespace Idasen.BluetoothLE.Core.Tests.ServicesDiscovery
         }
 
         [ AutoDataTestMethod ]
-        public void Create_ForUnknownAddress_Throws (
+        public async Task Create_ForUnknownAddress_Throws (
             Lazy < MatchMaker >       sut ,
             [ Freeze ] IDeviceFactory deviceFactory ,
             ulong                     address )
@@ -37,8 +37,8 @@ namespace Idasen.BluetoothLE.Core.Tests.ServicesDiscovery
                                                 .ConfigureAwait ( false ) ;
                                    } ;
 
-            action.Should ( )
-                  .Throw < ArgumentNullException > ( ) ;
+            await action.Should ( )
+                        .ThrowAsync < ArgumentNullException > ( ) ;
         }
     }
 }

@@ -242,14 +242,14 @@ namespace Idasen.BluetoothLE.Linak.Tests
         }
 
         [ TestMethod ]
-        public void Start_ForNotInitialized_Throws ( )
+        public async Task Start_ForNotInitialized_Throws ( )
         {
             var sut = CreateSut ( ) ;
 
             Func < Task > action = async ( ) => await sut.Start ( ) ;
 
-            action.Should ( )
-                  .Throw < NotInitializeException > ( ) ;
+            await action.Should ( )
+                        .ThrowAsync < NotInitializeException > ( ) ;
         }
 
         [ TestMethod ]

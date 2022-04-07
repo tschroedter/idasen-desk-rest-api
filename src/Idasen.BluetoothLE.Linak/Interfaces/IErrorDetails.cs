@@ -1,5 +1,6 @@
 ﻿using System ;
 using JetBrains.Annotations ;
+// ReSharper disable UnusedMemberInSuper.Global
 
 namespace Idasen.BluetoothLE.Linak.Interfaces
 {

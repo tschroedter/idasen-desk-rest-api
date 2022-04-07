@@ -1,4 +1,5 @@
 ﻿using Idasen.BluetoothLE.Linak.Control ;
+// ReSharper disable UnusedMemberInSuper.Global
 
 namespace Idasen.BluetoothLE.Linak.Interfaces
 {
@@ -8,6 +9,7 @@ namespace Idasen.BluetoothLE.Linak.Interfaces
         ///     The expected movement in mm of the desk from maximum speed to zero
         ///     speed.
         /// </summary>
+        // ReSharper disable once UnusedMemberInSuper.Global
         uint MaxSpeedToStopMovement { get ; set ; }
 
         /// <summary>

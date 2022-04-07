@@ -5,6 +5,7 @@ using System.Threading ;
 using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Linak ;
 using Idasen.RESTAPI.Interfaces ;
+// ReSharper disable UnusedMember.Global
 
 namespace Idasen.RESTAPI.Desks
 {

@@ -4,6 +4,7 @@ using FluentAssertions;
 using Idasen.BluetoothLE.Common.Tests;
 using Idasen.BluetoothLE.Core.Interfaces.DevicesDiscovery;
 using Idasen.BluetoothLE.Linak.Interfaces;
+using JetBrains.Annotations ;
 using Microsoft.Reactive.Testing;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
@@ -25,6 +26,7 @@ namespace Idasen.BluetoothLE.Linak.Tests
         private ISubject<IDesk> _deskDetected;
         private ISubject<IDevice> _updated;
         private Subject<IDevice> _discovered;
+        [UsedImplicitly]
         private Subject<IDevice> _nameChanged;
         private Subject<IDevice> _deskFound;
         private IDesk _desk;

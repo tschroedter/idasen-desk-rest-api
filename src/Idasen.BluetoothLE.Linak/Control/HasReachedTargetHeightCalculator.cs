@@ -45,9 +45,11 @@ namespace Idasen.BluetoothLE.Linak.Control
         /// <inheritdoc />
         public IHasReachedTargetHeightCalculator Calculate ( )
         {
+            // ReSharper disable MathAbsMethodIsRedundant
             Delta = TargetHeight >= StoppingHeight
                         ? ( uint ) Math.Abs ( TargetHeight   - StoppingHeight )
                         : ( uint ) Math.Abs ( StoppingHeight - TargetHeight ) ;
+            // ReSharper restore MathAbsMethodIsRedundant
 
             if ( StartMovingIntoDirection != MoveIntoDirection )
             {

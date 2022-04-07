@@ -104,6 +104,9 @@ namespace Idasen.BluetoothLE.Tests.DevicesDiscovery
             IDevice        device2,
             DeviceComparer comparer)
         {
+            device1.Address.Returns(1u);
+            device2.Address.Returns(2u);
+
             sut.AddOrUpdateDevice(device1);
             sut.AddOrUpdateDevice(device2);
 
@@ -155,6 +158,9 @@ namespace Idasen.BluetoothLE.Tests.DevicesDiscovery
             IDevice device1,
             IDevice device2)
         {
+            device1.Address.Returns(1u);
+            device2.Address.Returns(2u);
+
             sut.AddOrUpdateDevice(device1);
             sut.AddOrUpdateDevice(device2);
 
@@ -171,6 +177,9 @@ namespace Idasen.BluetoothLE.Tests.DevicesDiscovery
             IDevice        device2,
             DeviceComparer comparer)
         {
+            device1.Address.Returns ( 1u ) ;
+            device2.Address.Returns ( 2u ) ;
+
             sut.AddOrUpdateDevice(device1);
             sut.AddOrUpdateDevice(device2);
 

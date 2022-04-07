@@ -1,6 +1,5 @@
 ﻿using System ;
 using FluentAssertions ;
-using FluentAssertions.Common ;
 using FluentAssertions.Execution ;
 using Idasen.BluetoothLE.Linak.Control ;
 using Microsoft.VisualStudio.TestTools.UnitTesting ;
@@ -129,7 +128,7 @@ namespace Idasen.BluetoothLE.Linak.Tests.Control.ConstructorNullTesters
             foreach ( var item in buffer )
             {
                 item.Should ( )
-                    .IsSameOrEqualTo ( x ) ;
+                    .Be ( x ) ;
                 x ++ ;
             }
         }

@@ -112,11 +112,9 @@ namespace Idasen.BluetoothLE.Core.ServicesDiscovery.Wrappers
             GattValueChangedEventArgs                          args ,
             ISubject < GattCharacteristicValueChangedDetails > subject )
         {
-            var bytes = Array.Empty < byte > ( ) ;
-
             try
             {
-                bytes = args.CharacteristicValue?.ToArray ( ) ?? Array.Empty < byte > ( ) ;
+                var bytes = args.CharacteristicValue?.ToArray ( ) ?? Array.Empty < byte > ( ) ;
 
                 var details = new GattCharacteristicValueChangedDetails(sender.Uuid,
                                                                         bytes,

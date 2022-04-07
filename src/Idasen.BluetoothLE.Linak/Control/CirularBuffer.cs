@@ -348,7 +348,7 @@ namespace Idasen.BluetoothLE.Linak.Control
         private ArraySegment < T > ArrayOne ( )
         {
             if ( IsEmpty )
-                return new ArraySegment < T > ( new T[ 0 ] ) ;
+                return new ArraySegment < T > ( Array.Empty < T > ( ) ) ;
             if ( _start < _end )
                 return new ArraySegment < T > ( _buffer ,
                                                 _start ,
@@ -361,7 +361,7 @@ namespace Idasen.BluetoothLE.Linak.Control
         private ArraySegment < T > ArrayTwo ( )
         {
             if ( IsEmpty )
-                return new ArraySegment < T > ( new T[ 0 ] ) ;
+                return new ArraySegment < T > ( Array.Empty < T > ( ) ) ;
             if ( _start < _end )
                 return new ArraySegment < T > ( _buffer ,
                                                 _end ,

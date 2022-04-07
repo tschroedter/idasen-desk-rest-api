@@ -2,6 +2,7 @@
 using System.Threading ;
 using System.Threading.Tasks ;
 using JetBrains.Annotations ;
+// ReSharper disable UnusedMemberInSuper.Global
 
 namespace Idasen.BluetoothLE.Linak.Interfaces
 {
