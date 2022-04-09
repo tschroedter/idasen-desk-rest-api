@@ -34,10 +34,10 @@ namespace Idasen.RESTAPI
 
         private static LoggerConfiguration CreateLoggerConfiguration ( )
         {
-            return new LoggerConfiguration()
-                  .WriteTo.RollingFile(AppDomain.CurrentDomain.BaseDirectory + "\\logs\\app-{Date}.log")
-                   //.WriteTo.ColoredConsole()
-                  .MinimumLevel.Debug() ;
+            return new LoggerConfiguration ( )
+                  .WriteTo.File ( AppDomain.CurrentDomain.BaseDirectory + "\\logs\\app-{Date}.log" )
+                  .WriteTo.Console ( )
+                  .MinimumLevel.Debug ( ) ;
         }
     }
 }
