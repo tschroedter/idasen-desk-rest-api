@@ -1,7 +1,6 @@
 ﻿using System ;
-using Microsoft.AspNetCore.Hosting ;
-using Microsoft.Extensions.Configuration ;
-using Microsoft.Extensions.Logging ;
+using Serilog ;
+using Topshelf ;
 
 namespace Idasen.RESTAPI
 {
@@ -9,30 +8,36 @@ namespace Idasen.RESTAPI
     {
         private static void Main ( )
         {
-            var host = new WebHostBuilder ( )
-                      .UseKestrel ( )
-                      .UseUrls ( "http://*:5000" )
-                      .ConfigureLogging ( logging =>
-                                          {
-                                              logging.ClearProviders ( ) ;
-                                              logging.AddConsole ( ) ;
-                                              logging.AddDebug ( ) ;
-                                          } )
-                      .UseStartup < Startup > ( )
-                      .ConfigureAppConfiguration ( AddAppSettingsJson ( ) )
-                      .Build ( ) ;
+            var rc = HostFactory.Run ( x =>
+                                       {
+                                           x.Service < IdasenRestApi > ( s =>
+                                                                         {
+                                                                             s.ConstructUsing ( name => new IdasenRestApi ( ) ) ;
+                                                                             s.WhenStarted ( tc => tc.Start ( ) ) ;
+                                                                             s.WhenStopped ( tc => tc.Stop ( ) ) ;
+                                                                         } ) ;
+                                           x.RunAsLocalSystem ( ) ;
 
-            host.Run ( ) ;
+                                           x.SetDescription ( "Idasen REST API Host" ) ;
+                                           x.SetDisplayName ( "Idasen REST API" ) ;
+                                           x.SetServiceName ( "Idasen REST API" ) ;
+                                           x.StartAutomatically ( ) ;
+                                           x.UseSerilog ( CreateLoggerConfiguration ( ) );
+                                           //x.RunAs("username", "password");
+                                       } ) ;
+
+            var exitCode = ( int )Convert.ChangeType ( rc ,
+                                                       rc.GetTypeCode ( ) ) ;
+
+            Environment.ExitCode = exitCode ;
         }
 
-        private static Action < WebHostBuilderContext , IConfigurationBuilder > AddAppSettingsJson ( )
+        private static LoggerConfiguration CreateLoggerConfiguration ( )
         {
-            return ( context ,
-                     builder ) =>
-                   {
-                       builder.AddJsonFile ( "appsettings.json" ,
-                                             true ) ;
-                   } ;
+            return new LoggerConfiguration()
+                  .WriteTo.RollingFile(AppDomain.CurrentDomain.BaseDirectory + "\\logs\\app-{Date}.log")
+                   //.WriteTo.ColoredConsole()
+                  .MinimumLevel.Debug() ;
         }
     }
 }
