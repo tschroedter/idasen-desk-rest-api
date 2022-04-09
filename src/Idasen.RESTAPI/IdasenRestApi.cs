@@ -4,6 +4,7 @@ using System.Threading.Tasks ;
 using Microsoft.AspNetCore.Hosting ;
 using Microsoft.Extensions.Configuration ;
 using Microsoft.Extensions.Logging ;
+using Serilog ;
 
 namespace Idasen.RESTAPI
 {
@@ -45,12 +46,17 @@ namespace Idasen.RESTAPI
 
                 while ( ! _canceler.Token.IsCancellationRequested )
                 {
-                    Console.WriteLine ( "Service Cancelled" ) ;
+                    Log.Logger.Information ( "Received request to stop service..." ) ;
+
+                    Log.Logger.Information ( "Stopping web server..." ) ;
+                    await _host.StopAsync ( TimeSpan.FromSeconds ( 5 ) ) ;
+
+                    Log.Logger.Information ( "...stopped web server." ) ;
                 }
             }
             catch ( Exception e )
             {
-                Console.WriteLine ( e ) ;
+                Log.Logger.Error ( e, "Failed to stop service!" ) ;
             }
         }
 

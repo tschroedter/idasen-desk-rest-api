@@ -8,6 +8,12 @@ namespace Idasen.RESTAPI
     {
         private static void Main ( )
         {
+            Log.Logger = CreateLoggerConfiguration().Enrich
+                                                    .FromLogContext()
+                                                    .WriteTo.Console()
+                                                    .CreateLogger();
+
+
             var rc = HostFactory.Run ( x =>
                                        {
                                            x.Service < IdasenRestApi > ( s =>
@@ -34,8 +40,12 @@ namespace Idasen.RESTAPI
 
         private static LoggerConfiguration CreateLoggerConfiguration ( )
         {
+            var folder = AppDomain.CurrentDomain.BaseDirectory + "\\logs\\app-{Date}.log" ;
+
+            Console.WriteLine ( $"Logging to '{folder}'" ) ;
+
             return new LoggerConfiguration ( )
-                  .WriteTo.File ( AppDomain.CurrentDomain.BaseDirectory + "\\logs\\app-{Date}.log" )
+                  .WriteTo.File ( folder )
                   .WriteTo.Console ( )
                   .MinimumLevel.Debug ( ) ;
         }
