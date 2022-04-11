@@ -21,8 +21,8 @@ namespace Idasen.RESTAPI.Desks
         {
             IEnumerable < IModule > otherModules = new List < IModule > { new IdasenRESTAPIModule ( ) } ;
 
-            var container = ContainerProvider.Create ( "Idasen.ConsoleDapr" ,
-                                                       "Idasen.ConsoleDapr.log",
+            var container = ContainerProvider.Create ( "Idasen.Desk" ,
+                                                       "idasen-desk.log",
                                                        otherModules) ;
 
             var manager = container.Resolve < IDeskManager > ( ) ;

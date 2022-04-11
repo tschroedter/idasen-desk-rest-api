@@ -4,7 +4,6 @@ using Idasen.BluetoothLE.Core ;
 using JetBrains.Annotations ;
 using Serilog ;
 using Serilog.Events ;
-using Serilog.Sinks.SystemConsole.Themes ;
 
 namespace Idasen.Launcher
 {
@@ -32,57 +31,43 @@ namespace Idasen.Launcher
                 return Logger ;
             }
 
-            Logger = DoCreateLogger ( appName ,
-                                      appLogFileName ) ;
+            Logger = DoCreateLogger ( appLogFileName ) ;
 
             Logger.Debug ( $"Created logger for '{appName}' in folder '{appLogFileName}'" ) ;
 
             return Logger ;
         }
 
-        private static ILogger DoCreateLogger (
-            string appName ,
-            string appLogFileName )
+        private static ILogger DoCreateLogger ( string appLogFileName )
         {
-            var logFolder = CreateFullPathApplicationFolderName ( appName ) ;
-            var logFile = CreateFullPathLogFileName ( appName ,
+            var logFolder = AppDomain.CurrentDomain.BaseDirectory + "\\logs\\" ;
+
+            var logFile = CreateFullPathLogFileName ( logFolder,
                                                       appLogFileName ) ;
 
             if ( ! Directory.Exists ( logFolder ) )
                 Directory.CreateDirectory ( logFolder ) ;
 
-            return new LoggerConfiguration ( )
-                  .MinimumLevel
-                  .Debug ( )
-                  .Enrich
-                  .WithCaller ( )
-                  .WriteTo.Console ( LogEventLevel.Debug ,
-                                     LogTemplate ,
-                                     theme : AnsiConsoleTheme.Code )
-                  .WriteTo
-                  .File ( logFile ,
-                          LogEventLevel.Debug ,
-                          LogTemplate )
-                  .CreateLogger ( ) ;
+            var loggerConfiguration = new LoggerConfiguration ( )
+                                     .MinimumLevel
+                                     .Debug ( )
+                                     .Enrich
+                                     .WithCaller ( )
+                                     .WriteTo.Console ( LogEventLevel.Debug ,
+                                                        LogTemplate )
+                                     .WriteTo.File ( logFile ,
+                                                     LogEventLevel.Debug ,
+                                                     LogTemplate ) ;
+
+            return loggerConfiguration.CreateLogger ( ) ;
         }
 
-#pragma warning disable SecurityIntelliSenseCS // MS Security rules violation
-        public static string CreateFullPathLogFileName ( string appName ,
+        public static string CreateFullPathLogFileName ( string folder ,
                                                          string fileName )
         {
-            var fullPath = Path.Combine ( CreateFullPathApplicationFolderName ( appName ) ,
+            var fullPath = Path.Combine ( folder ,
                                           fileName ) ;
             return fullPath ;
         }
-
-        public static string CreateFullPathApplicationFolderName ( string appName )
-        {
-            var appData = Environment.GetFolderPath ( Environment.SpecialFolder.CommonApplicationData ) ;
-            var folderName = Path.Combine ( appData ,
-                                            appName ) ;
-
-            return folderName ;
-        }
-#pragma warning restore SecurityIntelliSenseCS // MS Security rules violation
     }
 }
