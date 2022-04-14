@@ -31,7 +31,6 @@ namespace Idasen.RESTAPI
 
             services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
 
-            // todo the flag UseFakeDeskManager will come form settings or config file
             // ReSharper disable once RedundantArgumentDefaultValue
             services.AddSingleton ( c => CreateDeskManager ( ) ) ;
         }
