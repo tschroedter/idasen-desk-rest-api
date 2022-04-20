@@ -3,31 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.Aop", ".\Idasen.Aop\Idasen.Aop.csproj", "{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Idasen Desk", "Idasen Desk", "{6925197B-11E6-4708-8F8D-A62AD704B551}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Characteristics", ".\Idasen.BluetoothLE.Characteristics\Idasen.BluetoothLE.Characteristics.csproj", "{15209D50-912E-4652-AB3B-BE7890551A92}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Characteristics.Tests", ".\Idasen.BluetoothLE.Characteristics.Tests\Idasen.BluetoothLE.Characteristics.Tests.csproj", "{C2C19174-8444-46FA-9CFE-E8180C62328E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{E331D793-99CD-4377-8E7D-C33E4978FE4B}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Common.Tests", ".\Idasen.BluetoothLE.Common.Tests\Idasen.BluetoothLE.Common.Tests.csproj", "{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Core", ".\Idasen.BluetoothLE.Core\Idasen.BluetoothLE.Core.csproj", "{C7C05069-A645-401E-B4C8-5DBE25875817}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Core.Tests", ".\Idasen.BluetoothLE.Core.Tests\Idasen.BluetoothLE.Core.Tests.csproj", "{9D4686A4-A1C4-4406-A2C1-32F41D216EDC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Linak", ".\Idasen.BluetoothLE.Linak\Idasen.BluetoothLE.Linak.csproj", "{94247FDB-F85A-436E-8368-57E95911775F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Linak.Tests", ".\Idasen.BluetoothLE.Linak.Tests\Idasen.BluetoothLE.Linak.Tests.csproj", "{AB384C64-0826-4E16-9D6D-93F8EF859DD6}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.BluetoothLE.Tests", ".\Idasen.BluetoothLE.Tests\Idasen.BluetoothLE.Tests.csproj", "{92DA79CA-714E-4F24-9065-A7F715958804}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.Launcher", ".\Idasen.Launcher\Idasen.Launcher.csproj", "{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi", ".\Idasen.RESTAPI\Idasen.RestApi.csproj", "{A5C24C7A-AC4E-47C5-B15B-6B9B58FF0DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi", "Idasen.RESTAPI\Idasen.RestApi.csproj", "{A5C24C7A-AC4E-47C5-B15B-6B9B58FF0DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,46 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{15209D50-912E-4652-AB3B-BE7890551A92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{15209D50-912E-4652-AB3B-BE7890551A92}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{15209D50-912E-4652-AB3B-BE7890551A92}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{15209D50-912E-4652-AB3B-BE7890551A92}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C2C19174-8444-46FA-9CFE-E8180C62328E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C2C19174-8444-46FA-9CFE-E8180C62328E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C2C19174-8444-46FA-9CFE-E8180C62328E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C2C19174-8444-46FA-9CFE-E8180C62328E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C7C05069-A645-401E-B4C8-5DBE25875817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C7C05069-A645-401E-B4C8-5DBE25875817}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C7C05069-A645-401E-B4C8-5DBE25875817}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C7C05069-A645-401E-B4C8-5DBE25875817}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D4686A4-A1C4-4406-A2C1-32F41D216EDC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D4686A4-A1C4-4406-A2C1-32F41D216EDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D4686A4-A1C4-4406-A2C1-32F41D216EDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D4686A4-A1C4-4406-A2C1-32F41D216EDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{94247FDB-F85A-436E-8368-57E95911775F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{94247FDB-F85A-436E-8368-57E95911775F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{94247FDB-F85A-436E-8368-57E95911775F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{94247FDB-F85A-436E-8368-57E95911775F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AB384C64-0826-4E16-9D6D-93F8EF859DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AB384C64-0826-4E16-9D6D-93F8EF859DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AB384C64-0826-4E16-9D6D-93F8EF859DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AB384C64-0826-4E16-9D6D-93F8EF859DD6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{92DA79CA-714E-4F24-9065-A7F715958804}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{92DA79CA-714E-4F24-9065-A7F715958804}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{92DA79CA-714E-4F24-9065-A7F715958804}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{92DA79CA-714E-4F24-9065-A7F715958804}.Release|Any CPU.Build.0 = Release|Any CPU
-		{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5C24C7A-AC4E-47C5-B15B-6B9B58FF0DCB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5C24C7A-AC4E-47C5-B15B-6B9B58FF0DCB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5C24C7A-AC4E-47C5-B15B-6B9B58FF0DCB}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -82,19 +18,6 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{517F9CD5-164B-4D68-8AFC-71E8BE1DDFD4} = {6925197B-11E6-4708-8F8D-A62AD704B551}
-		{15209D50-912E-4652-AB3B-BE7890551A92} = {6925197B-11E6-4708-8F8D-A62AD704B551}
-		{C2C19174-8444-46FA-9CFE-E8180C62328E} = {E331D793-99CD-4377-8E7D-C33E4978FE4B}
-		{E331D793-99CD-4377-8E7D-C33E4978FE4B} = {6925197B-11E6-4708-8F8D-A62AD704B551}
-		{7AA1ED6D-5D0D-4F61-A2E3-9E911FCEAE77} = {E331D793-99CD-4377-8E7D-C33E4978FE4B}
-		{C7C05069-A645-401E-B4C8-5DBE25875817} = {6925197B-11E6-4708-8F8D-A62AD704B551}
-		{9D4686A4-A1C4-4406-A2C1-32F41D216EDC} = {E331D793-99CD-4377-8E7D-C33E4978FE4B}
-		{94247FDB-F85A-436E-8368-57E95911775F} = {6925197B-11E6-4708-8F8D-A62AD704B551}
-		{AB384C64-0826-4E16-9D6D-93F8EF859DD6} = {E331D793-99CD-4377-8E7D-C33E4978FE4B}
-		{92DA79CA-714E-4F24-9065-A7F715958804} = {E331D793-99CD-4377-8E7D-C33E4978FE4B}
-		{28DB7ECE-BDCE-4522-B82E-5D54ABD06C6E} = {6925197B-11E6-4708-8F8D-A62AD704B551}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E10E223-6FF3-4EA3-8F47-51A6B52BD1CC}
