@@ -14,6 +14,6 @@ namespace Idasen.RESTAPI.Dtos.Validators
         }
 
         private const uint MinHeight = 6000u ;
-        private const uint MaxHeight = 12000u ;
+        private const uint MaxHeight = 12700u ;
     }
 }
