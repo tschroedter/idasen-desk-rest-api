@@ -13,7 +13,7 @@ namespace Idasen.RESTAPI.Dtos.Validators
                                      .WithMessage ( $"Height must be between {MinHeight} and {MaxHeight}" ) ;
         }
 
-        private const uint MinHeight = 6000u ;
+        private const uint MinHeight = 6200u ;
         private const uint MaxHeight = 12700u ;
     }
 }
