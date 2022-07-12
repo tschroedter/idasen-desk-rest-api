@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic ;
+using System.IO ;
 using System.Threading.Tasks ;
 using Autofac ;
 using Autofac.Core ;
 using Idasen.Launcher ;
 using Idasen.RESTAPI.Interfaces ;
 using JetBrains.Annotations ;
+using Microsoft.Extensions.Configuration ;
 
 namespace Idasen.RESTAPI.Desks
 {
@@ -21,9 +23,11 @@ namespace Idasen.RESTAPI.Desks
         {
             IEnumerable < IModule > otherModules = new List < IModule > { new IdasenRESTAPIModule ( ) } ;
 
-            var container = ContainerProvider.Create ( "Idasen.Desk" ,
-                                                       "idasen-desk.log",
-                                                       otherModules) ;
+            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+                                                    .AddJsonFile("appsettings.json");
+
+            var container = ContainerProvider.Create(builder.Build(),
+                                                     otherModules);
 
             var manager = container.Resolve < IDeskManager > ( ) ;
 
