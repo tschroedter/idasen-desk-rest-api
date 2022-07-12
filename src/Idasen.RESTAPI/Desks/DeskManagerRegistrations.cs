@@ -33,6 +33,8 @@ namespace Idasen.RESTAPI.Desks
 
             while ( ! ( DeskManager is { Result: true } ) )
             {
+                DeskManager?.Dispose (  );
+
                 DeskManager = Task.Run ( async ( ) => await manager.Initialise ( )
                                                                    .ConfigureAwait ( false ) ) ;
             }
