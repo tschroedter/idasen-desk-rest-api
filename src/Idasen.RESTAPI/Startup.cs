@@ -1,12 +1,18 @@
-﻿using System.Reflection ;
+﻿using System ;
+using System.Reflection ;
+using System.Threading ;
+using System.Threading.Tasks ;
 using FluentValidation.AspNetCore ;
+using Idasen.BluetoothLE.Core ;
 using Idasen.RESTAPI.Desks ;
 using Idasen.RESTAPI.Filters ;
 using Idasen.RESTAPI.Interfaces ;
 using Idasen.RESTAPI.Repositories ;
+using JetBrains.Annotations ;
 using Microsoft.AspNetCore.Builder ;
 using Microsoft.Extensions.Configuration ;
 using Microsoft.Extensions.DependencyInjection ;
+using Microsoft.Extensions.Hosting ;
 using Microsoft.Extensions.Logging ;
 
 namespace Idasen.RESTAPI
@@ -32,7 +38,9 @@ namespace Idasen.RESTAPI
             services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
 
             // ReSharper disable once RedundantArgumentDefaultValue
-            services.AddSingleton ( c => CreateDeskManager ( ) ) ;
+            services.AddSingleton ( _ => CreateDeskManager ( ) ) ;
+
+            services.AddHostedService<DeskManagerBackground>();
         }
 
         public void Configure ( IApplicationBuilder builder )
@@ -69,6 +77,47 @@ namespace Idasen.RESTAPI
 
             var configuration = builder.Build ( ) ;
             return configuration ;
+        }
+    }
+
+    public class DeskManagerBackground : BackgroundService
+    {
+        private readonly ILogger < DeskManagerBackground > _logger ;
+        private readonly IDeskManager                      _manager ;
+
+        public DeskManagerBackground ( [ NotNull ] ILogger <DeskManagerBackground> logger,
+                                       [ NotNull ] IDeskManager                    manager )
+        {
+            Guard.ArgumentNotNull ( logger ,
+                                    nameof ( logger ) ) ;
+            Guard.ArgumentNotNull ( manager ,
+                                    nameof ( manager ) ) ;
+
+            _logger  = logger ;
+            _manager = manager ;
+        }
+
+        protected override async Task ExecuteAsync ( CancellationToken cancellationToken)
+        {
+            try
+            {
+                var success = false ;
+
+                while ( ! cancellationToken.IsCancellationRequested &&
+                        ! success )
+                {
+                    _logger.LogInformation("Trying to initializing DeskManager...");
+
+                    success = await _manager.Initialise ( ) ;
+                }
+
+                _logger.LogInformation("...DeskManager initialized!");
+            }
+            catch ( Exception e )
+            {
+                _logger.LogError ( e ,
+                                   "Failed to initialize DeskManager." ) ;
+            }
         }
     }
 }
