@@ -22,9 +22,7 @@ namespace Idasen.RESTAPI
                                        {
                                            x.Service < IdasenRestApi > ( s =>
                                                                          {
-                                                                             s.ConstructUsing ( name =>
-                                                                                                    new
-                                                                                                        IdasenRestApi ( ) ) ;
+                                                                             s.ConstructUsing ( _ => new IdasenRestApi ( ) ) ;
                                                                              s.WhenStarted ( tc => tc.Start ( ) ) ;
                                                                              s.WhenStopped ( tc => tc.Stop ( ) ) ;
                                                                          } ) ;
