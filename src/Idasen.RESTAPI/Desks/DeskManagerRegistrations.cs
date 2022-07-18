@@ -16,7 +16,9 @@ namespace Idasen.RESTAPI.Desks
 
         public static IDeskManager CreateFakeDeskManager ( )
         {
-            return new FakeDeskManager ( ) ;
+            IDeskManager manager = new FakeDeskManager ( ) ;
+
+            return manager ;
         }
 
         public static IDeskManager CreateRealDeskManager ( )
@@ -30,14 +32,6 @@ namespace Idasen.RESTAPI.Desks
                                                      otherModules);
 
             var manager = container.Resolve < IDeskManager > ( ) ;
-
-            while ( ! ( DeskManager is { Result: true } ) )
-            {
-                DeskManager?.Dispose (  );
-
-                DeskManager = Task.Run ( async ( ) => await manager.Initialise ( )
-                                                                   .ConfigureAwait ( false ) ) ;
-            }
 
             return manager ;
         }
