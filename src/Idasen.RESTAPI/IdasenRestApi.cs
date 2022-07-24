@@ -16,7 +16,7 @@ namespace Idasen.RESTAPI
 
         private static Action < WebHostBuilderContext , IConfigurationBuilder > AddAppSettingsJson ( )
         {
-            return ( context ,
+            return ( _ ,
                      builder ) =>
                    {
                        builder.AddJsonFile ( "appsettings.json" ,

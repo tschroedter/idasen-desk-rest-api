@@ -32,20 +32,18 @@ namespace Idasen.RESTAPI.Desks
 
         public async Task < bool > Initialise ( )
         {
-            void HandleException ( TimeSpan sleepDuration )
+            void HandleException ( Exception e,
+                                   TimeSpan sleepDuration )
             {
-                Console.WriteLine ( $"Transient error. Retrying in {sleepDuration}. " ) ;
+                Console.WriteLine ( $"Transient error '{e.Message}'. " +
+                                    $"Retrying in {sleepDuration}. " ) ;
             }
 
             //Build the policy
             var desk = await Policy.Handle < Exception > ( )
                                    .WaitAndRetryForeverAsync ( retryAttempt => TimeSpan.FromSeconds ( Math.Pow ( 2 ,
                                                                                                                  retryAttempt ) ) ,
-                                                               ( exception ,
-                                                                 sleepDuration ) =>
-                                                               {
-                                                                   HandleException ( sleepDuration ) ;
-                                                               } )
+                                                               HandleException )
                                    .ExecuteAsync ( FindDesk ) ;
 
             if ( desk is null )

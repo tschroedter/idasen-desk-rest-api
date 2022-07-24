@@ -1,22 +1,14 @@
 ﻿using System ;
-using Idasen.Launcher ;
 using Serilog ;
-using Serilog.Events ;
-using Serilog.Sinks.SystemConsole.Themes ;
 using Topshelf ;
 
 namespace Idasen.RESTAPI
 {
     internal class Program
     {
-        private const string LogTemplate = "[{Timestamp:yyyy-MM-dd HH:mm:ss.ffff} " +
-                                           "{Level:u3}] {Message} "                 +
-                                           "(at {Caller}){NewLine}{Exception}" ;
-
         private static void Main ( )
         {
-            Log.Logger = CreateLoggerConfiguration ( ).CreateLogger ( ) ;
-
+            ConfigureLogger ( ) ;
 
             var rc = HostFactory.Run ( x =>
                                        {
@@ -42,24 +34,15 @@ namespace Idasen.RESTAPI
             Environment.ExitCode = exitCode ;
         }
 
-        private static LoggerConfiguration CreateLoggerConfiguration ( )
+        private static void ConfigureLogger ( )
         {
-            var logFile = AppDomain.CurrentDomain.BaseDirectory
-                        + "logs\\idasen-desk-rest-api.log" ;
+            var provider = new ApiConfigurationProvider ( ) ;
 
-            Console.WriteLine ( $"Logging to '{logFile}'" ) ;
+            var root = provider.GetConfigurationRoot ( ) ;
 
-            return new LoggerConfiguration ( ).MinimumLevel
-                                              .Debug ( )
-                                              .Enrich
-                                              .WithCaller ( )
-                                              .WriteTo.Console ( LogEventLevel.Debug ,
-                                                                 LogTemplate ,
-                                                                 theme : AnsiConsoleTheme.Code )
-                                              .WriteTo
-                                              .File ( logFile ,
-                                                      LogEventLevel.Debug ,
-                                                      LogTemplate ) ;
+            Log.Logger = new LoggerConfiguration ( ).ReadFrom
+                                                    .Configuration ( root )
+                                                    .CreateLogger ( ) ;
         }
     }
 }

@@ -266,18 +266,18 @@ namespace Idasen.RESTAPI.Desks
         private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes ( 1 ) ;
 
         private readonly Subject < IEnumerable < byte > >
-            _deviceNameChanged = new Subject < IEnumerable < byte > > ( ) ;
+            _deviceNameChanged = new( ) ;
 
-        private readonly Subject < uint > _finishedChanged = new Subject < uint > ( ) ;
+        private readonly Subject < uint > _finishedChanged = new( ) ;
 
         private readonly Subject < HeightSpeedDetails >
-            _heightAndSpeedChanged = new Subject < HeightSpeedDetails > ( ) ;
+            _heightAndSpeedChanged = new( ) ;
 
-        private readonly Subject < uint > _heightChanged    = new Subject < uint > ( ) ;
-        private readonly object           _padlock          = new object ( ) ;
-        private readonly Subject < bool > _refreshedChanged = new Subject < bool > ( ) ;
+        private readonly Subject < uint > _heightChanged    = new( ) ;
+        private readonly object           _padlock          = new( ) ;
+        private readonly Subject < bool > _refreshedChanged = new( ) ;
 
-        private readonly Subject < int >         _speedChanged = new Subject < int > ( ) ;
+        private readonly Subject < int >         _speedChanged = new( ) ;
         private          CancellationTokenSource _source ;
         private          CancellationToken       _token ;
     }

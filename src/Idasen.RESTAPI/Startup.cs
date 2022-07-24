@@ -1,14 +1,16 @@
-﻿using System.Reflection ;
-using FluentValidation.AspNetCore ;
-using Idasen.RestApi.BackgroundServices ;
-using Idasen.RESTAPI.Desks ;
-using Idasen.RESTAPI.Filters ;
-using Idasen.RESTAPI.Interfaces ;
-using Idasen.RESTAPI.Repositories ;
-using Microsoft.AspNetCore.Builder ;
-using Microsoft.Extensions.Configuration ;
-using Microsoft.Extensions.DependencyInjection ;
-using Microsoft.Extensions.Logging ;
+﻿using System ;
+using System.Reflection;
+using FluentValidation.AspNetCore;
+using Idasen.BluetoothLE.Core ;
+using Idasen.RestApi.BackgroundServices;
+using Idasen.RESTAPI.Desks;
+using Idasen.RESTAPI.Filters;
+using Idasen.RestApi.Interfaces ;
+using Idasen.RESTAPI.Interfaces;
+using Idasen.RESTAPI.Repositories;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Idasen.RESTAPI
 {
@@ -28,14 +30,14 @@ namespace Idasen.RESTAPI
             services.AddHealthChecks ( )
                     .AddCheck < DeskManagerHealthCheck > ( "Desk Manager" ) ;
 
-            services.AddLogging ( config => config.AddConfiguration ( GetLoggingConfiguration ( ) ) ) ;
-
             services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
 
             // ReSharper disable once RedundantArgumentDefaultValue
-            services.AddSingleton ( _ => CreateDeskManager ( ) ) ;
+            services.AddSingleton ( CreateDeskManager ) ;
 
             services.AddHostedService<DeskManagerInitializerService>();
+
+            services.AddSingleton < IApiConfigurationProvider , ApiConfigurationProvider > ( ) ;
         }
 
         public void Configure ( IApplicationBuilder builder )
@@ -45,33 +47,24 @@ namespace Idasen.RESTAPI
             builder.UseEndpoints ( endpoints => { endpoints.MapControllers ( ) ; } ) ;
         }
 
-        public IDeskManager CreateDeskManager ( )
+        public IDeskManager CreateDeskManager ( IServiceProvider serviceProvider )
         {
-            var useFake = GetUseFakeDeskManager ( ) ;
+            var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
 
             return useFake
                        ? DeskManagerRegistrations.CreateFakeDeskManager ( )
                        : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
         }
 
-        private static bool GetUseFakeDeskManager ( )
+        private static bool GetUseFakeDeskManager ( IServiceProvider serviceProvider )
         {
-            return GetConfiguration ( ).GetValue < bool > ( "use-fake-desk-manager" ) ;
-        }
+            var provider      = serviceProvider.GetService < IApiConfigurationProvider > ( ) ;
 
-        private static IConfiguration GetLoggingConfiguration ( )
-        {
-            return GetConfiguration ( ).GetSection ( "Logging" ) ;
-        }
+            Guard.ArgumentNotNull ( provider, nameof(provider) );
 
-        private static IConfigurationRoot GetConfiguration ( )
-        {
-            var builder = new ConfigurationBuilder ( ).AddJsonFile ( "appsettings.json" ,
-                                                                     true ,
-                                                                     true ) ;
+            var configuration = provider?.GetConfigurationRoot ( ) ;
 
-            var configuration = builder.Build ( ) ;
-            return configuration ;
+            return configuration.GetValue < bool > ( "use-fake-desk-manager" ) ;
         }
     }
 }

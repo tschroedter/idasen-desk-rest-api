@@ -9,7 +9,7 @@ namespace Idasen.RESTAPI.Dtos.Validators
     {
         public HeightDtoValidator ( )
         {
-            RuleFor ( m => m.Height ).Must ( x => x >= MinHeight && x <= MaxHeight )
+            RuleFor ( m => m.Height ).Must ( x => x is >= MinHeight and <= MaxHeight )
                                      .WithMessage ( $"Height must be between {MinHeight} and {MaxHeight}" ) ;
         }
 

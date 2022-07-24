@@ -26,7 +26,7 @@ namespace Idasen.RESTAPI.Desks
             IEnumerable < IModule > otherModules = new List < IModule > { new IdasenRESTAPIModule ( ) } ;
 
             var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                                                    .AddJsonFile("appsettings.json");
+                                                    .AddJsonFile("idasen-desk.json");
 
             var container = ContainerProvider.Create(builder.Build(),
                                                      otherModules);
