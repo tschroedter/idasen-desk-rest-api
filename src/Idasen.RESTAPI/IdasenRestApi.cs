@@ -55,8 +55,11 @@ namespace Idasen.RESTAPI
         {
             try
             {
+                Log.Logger.Information("Reading Settings...");
+                var configuration = new ApiConfigurationProvider ( ).GetConfigurationRoot ( ) ;
+
                 Log.Logger.Information("Creating WebHost...");
-                _host = CreateWebHostBuilder ( ) ;
+                _host = CreateWebHostBuilder ( configuration ) ;
 
                 Log.Logger.Information("Running WebHost...");
                 await _host.RunAsync ( ) ;
@@ -77,11 +80,17 @@ namespace Idasen.RESTAPI
             }
         }
 
-        private IWebHost CreateWebHostBuilder ( )
+        private IWebHost CreateWebHostBuilder ( IConfiguration configuration)
         {
+            var kestrel = configuration.GetSection ( "Kestrel" ) ;
+
 #pragma warning disable CS0618 // Type or member is obsolete
-            IWebHostBuilder builder = new WebHostBuilder ( ).UseKestrel ( )
-                                                            .UseUrls ( "http://*:5080" )
+            IWebHostBuilder builder = new WebHostBuilder ( ).UseConfiguration ( configuration )
+                                                            .UseKestrel ( ( _ ,
+                                                                            options ) =>
+                                                                          {
+                                                                              options.Configure(kestrel);
+                                                                          } )
                                                             .UseSerilog ( )
                                                             .UseStartup < Startup > ( )
                                                             .ConfigureAppConfiguration ( AddAppSettingsJson ( ) ) ;
