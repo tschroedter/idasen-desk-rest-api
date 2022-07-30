@@ -1,10 +1,9 @@
-﻿namespace Idasen.RESTAPI.Dtos
+﻿namespace Idasen.RESTAPI.Dtos ;
+
+internal class DeskDto
 {
-    internal class DeskDto
-    {
-        public string BluetoothAddress     { get ; set ; }
-        public string BluetoothAddressType { get ; set ; }
-        public string DeviceName           { get ; set ; }
-        public string Name                 { get ; set ; }
-    }
+    public string BluetoothAddress     { get ; set ; }
+    public string BluetoothAddressType { get ; set ; }
+    public string DeviceName           { get ; set ; }
+    public string Name                 { get ; set ; }
 }

@@ -8,32 +8,31 @@ using Idasen.RESTAPI.Interfaces ;
 using JetBrains.Annotations ;
 using Microsoft.Extensions.Configuration ;
 
-namespace Idasen.RESTAPI.Desks
+namespace Idasen.RESTAPI.Desks ;
+
+public static class DeskManagerRegistrations
 {
-    public static class DeskManagerRegistrations
+    [ UsedImplicitly ] public static Task < bool > DeskManager ;
+
+    public static IDeskManager CreateFakeDeskManager ( )
     {
-        [ UsedImplicitly ] public static Task < bool > DeskManager ;
+        IDeskManager manager = new FakeDeskManager ( ) ;
 
-        public static IDeskManager CreateFakeDeskManager ( )
-        {
-            IDeskManager manager = new FakeDeskManager ( ) ;
+        return manager ;
+    }
 
-            return manager ;
-        }
+    public static IDeskManager CreateRealDeskManager ( )
+    {
+        IEnumerable < IModule > otherModules = new List < IModule > { new IdasenRESTAPIModule ( ) } ;
 
-        public static IDeskManager CreateRealDeskManager ( )
-        {
-            IEnumerable < IModule > otherModules = new List < IModule > { new IdasenRESTAPIModule ( ) } ;
+        var builder = new ConfigurationBuilder ( ).SetBasePath ( Directory.GetCurrentDirectory ( ) )
+                                                  .AddJsonFile ( "idasen-desk.json" ) ;
 
-            var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
-                                                    .AddJsonFile("idasen-desk.json");
+        var container = ContainerProvider.Create ( builder.Build ( ) ,
+                                                   otherModules ) ;
 
-            var container = ContainerProvider.Create(builder.Build(),
-                                                     otherModules);
+        var manager = container.Resolve < IDeskManager > ( ) ;
 
-            var manager = container.Resolve < IDeskManager > ( ) ;
-
-            return manager ;
-        }
+        return manager ;
     }
 }

@@ -2,21 +2,20 @@
 using Microsoft.AspNetCore.Mvc ;
 using Microsoft.AspNetCore.Mvc.Filters ;
 
-namespace Idasen.RESTAPI.Filters
+namespace Idasen.RESTAPI.Filters ;
+
+public class ValidationFilter : IAsyncActionFilter
 {
-    public class ValidationFilter : IAsyncActionFilter
+    public Task OnActionExecutionAsync ( ActionExecutingContext  context ,
+                                         ActionExecutionDelegate next )
     {
-        public Task OnActionExecutionAsync ( ActionExecutingContext  context ,
-                                             ActionExecutionDelegate next )
+        if ( ! context.ModelState.IsValid )
         {
-            if ( ! context.ModelState.IsValid )
-            {
-                context.Result = new BadRequestObjectResult ( context.ModelState ) ;
+            context.Result = new BadRequestObjectResult ( context.ModelState ) ;
 
-                return Task.CompletedTask;
-            }
-
-            return next ( ) ;
+            return Task.CompletedTask ;
         }
+
+        return next ( ) ;
     }
 }

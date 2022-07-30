@@ -1,19 +1,16 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using Idasen.BluetoothLE.Core;
-using Idasen.RESTAPI.Interfaces;
-using JetBrains.Annotations;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+﻿using System ;
+using System.Threading ;
+using System.Threading.Tasks ;
+using Idasen.BluetoothLE.Core ;
+using Idasen.RESTAPI.Interfaces ;
+using JetBrains.Annotations ;
+using Microsoft.Extensions.Hosting ;
+using Microsoft.Extensions.Logging ;
 
-namespace Idasen.RestApi.BackgroundServices;
+namespace Idasen.RestApi.BackgroundServices ;
 
 public class DeskManagerInitializerService : BackgroundService
 {
-    private readonly ILogger<DeskManagerInitializerService> _logger;
-    private readonly IDeskManager                           _manager;
-
     public DeskManagerInitializerService (
         [ NotNull ] ILogger < DeskManagerInitializerService > logger ,
         [ NotNull ] IDeskManager                              manager )
@@ -27,26 +24,29 @@ public class DeskManagerInitializerService : BackgroundService
         _manager = manager ;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
+    protected override async Task ExecuteAsync ( CancellationToken cancellationToken )
     {
         try
         {
-            var success = false;
+            var success = false ;
 
-            while (!cancellationToken.IsCancellationRequested &&
-                    !success)
+            while ( ! cancellationToken.IsCancellationRequested &&
+                    ! success )
             {
-                _logger.LogInformation("Trying to initializing DeskManager...");
+                _logger.LogInformation ( "Trying to initializing DeskManager..." ) ;
 
-                success = await _manager.Initialise();
+                success = await _manager.Initialise ( ) ;
             }
 
-            _logger.LogInformation("...DeskManager initialized!");
+            _logger.LogInformation ( "...DeskManager initialized!" ) ;
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
-            _logger.LogError(e,
-                               "Failed to initialize DeskManager.");
+            _logger.LogError ( e ,
+                               "Failed to initialize DeskManager." ) ;
         }
     }
+
+    private readonly ILogger < DeskManagerInitializerService > _logger ;
+    private readonly IDeskManager                              _manager ;
 }

@@ -22,11 +22,11 @@ public class FileStorage : ISettingsStorage
         Folder = Path.Combine ( new [ ]
                                 {
                                     ApplicationData ,
-                                    "idasen-desk-rest-api",
+                                    "idasen-desk-rest-api" ,
                                     "settings"
                                 } ) ;
 
-        if ( !Directory.Exists ( Folder ) )
+        if ( ! Directory.Exists ( Folder ) )
             Directory.CreateDirectory ( Folder ) ;
     }
 
@@ -95,7 +95,7 @@ public class FileStorage : ISettingsStorage
     private string CreateFullname ( string id )
     {
         return Path.Combine ( Folder ,
-                              Path.GetFileName ( $"{id}.json") ) ;
+                              Path.GetFileName ( $"{id}.json" ) ) ;
     }
 
     private async Task < (bool , SettingsDto) > DoTryLoadFromJson ( string id )

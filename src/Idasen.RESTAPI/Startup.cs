@@ -1,71 +1,71 @@
 ﻿using System ;
-using System.Reflection;
-using FluentValidation.AspNetCore;
+using System.Reflection ;
+using FluentValidation.AspNetCore ;
 using Idasen.BluetoothLE.Core ;
-using Idasen.RestApi.BackgroundServices;
-using Idasen.RESTAPI.Desks;
-using Idasen.RESTAPI.Filters;
+using Idasen.RestApi.BackgroundServices ;
+using Idasen.RESTAPI.Desks ;
+using Idasen.RESTAPI.Filters ;
 using Idasen.RestApi.Interfaces ;
-using Idasen.RESTAPI.Interfaces;
-using Idasen.RESTAPI.Repositories;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Idasen.RESTAPI.Interfaces ;
+using Idasen.RESTAPI.Repositories ;
+using Microsoft.AspNetCore.Builder ;
+using Microsoft.Extensions.Configuration ;
+using Microsoft.Extensions.DependencyInjection ;
 
-namespace Idasen.RESTAPI
+namespace Idasen.RESTAPI ;
+
+public class Startup
 {
-    public class Startup
+    public void ConfigureServices ( IServiceCollection services )
     {
-        public void ConfigureServices ( IServiceCollection services )
-        {
-            services.AddAutoMapper ( Assembly.GetExecutingAssembly ( ) ) ;
+        services.AddAutoMapper ( Assembly.GetExecutingAssembly ( ) ) ;
 
-            services.AddControllers ( options => { options.Filters.Add ( new ValidationFilter ( ) ) ; } ) ;
+        services.AddControllers ( options => { options.Filters.Add ( new ValidationFilter ( ) ) ; } ) ;
 
-            services.AddFluentValidation ( options =>
-                                           {
-                                               options.RegisterValidatorsFromAssemblyContaining < Startup > ( ) ;
-                                           } ) ;
+        services.AddFluentValidation ( options =>
+                                       {
+                                           options.RegisterValidatorsFromAssemblyContaining < Startup > ( ) ;
+                                       } ) ;
 
-            services.AddHealthChecks ( )
-                    .AddCheck < DeskManagerHealthCheck > ( "Desk Manager" ) ;
+        services.AddHealthChecks ( )
+                .AddCheck < DeskManagerHealthCheck > ( "Desk Manager" ) ;
 
-            services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
-            services.AddTransient < ISettingsStorage , FileStorage > ( ) ;
+        services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
+        services.AddTransient < ISettingsStorage , FileStorage > ( ) ;
 
-            // ReSharper disable once RedundantArgumentDefaultValue
-            services.AddSingleton ( CreateDeskManager ) ;
+        // ReSharper disable once RedundantArgumentDefaultValue
+        services.AddSingleton ( CreateDeskManager ) ;
 
-            services.AddHostedService<DeskManagerInitializerService>();
+        services.AddHostedService < DeskManagerInitializerService > ( ) ;
 
-            services.AddSingleton < IApiConfigurationProvider , ApiConfigurationProvider > ( ) ;
-        }
+        services.AddSingleton < IApiConfigurationProvider , ApiConfigurationProvider > ( ) ;
+    }
 
-        public void Configure ( IApplicationBuilder builder )
-        {
-            builder.UseRouting ( ) ;
-            builder.UseHealthChecks ( "/health" ) ;
-            builder.UseEndpoints ( endpoints => { endpoints.MapControllers ( ) ; } ) ;
-        }
+    public void Configure ( IApplicationBuilder builder )
+    {
+        builder.UseRouting ( ) ;
+        builder.UseHealthChecks ( "/health" ) ;
+        builder.UseEndpoints ( endpoints => { endpoints.MapControllers ( ) ; } ) ;
+    }
 
-        public IDeskManager CreateDeskManager ( IServiceProvider serviceProvider )
-        {
-            var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
+    public IDeskManager CreateDeskManager ( IServiceProvider serviceProvider )
+    {
+        var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
 
-            return useFake
-                       ? DeskManagerRegistrations.CreateFakeDeskManager ( )
-                       : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
-        }
+        return useFake
+                   ? DeskManagerRegistrations.CreateFakeDeskManager ( )
+                   : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
+    }
 
-        private static bool GetUseFakeDeskManager ( IServiceProvider serviceProvider )
-        {
-            var provider      = serviceProvider.GetService < IApiConfigurationProvider > ( ) ;
+    private static bool GetUseFakeDeskManager ( IServiceProvider serviceProvider )
+    {
+        var provider = serviceProvider.GetService < IApiConfigurationProvider > ( ) ;
 
-            Guard.ArgumentNotNull ( provider, nameof(provider) );
+        Guard.ArgumentNotNull ( provider ,
+                                nameof ( provider ) ) ;
 
-            var configuration = provider?.GetConfigurationRoot ( ) ;
+        var configuration = provider?.GetConfigurationRoot ( ) ;
 
-            return configuration.GetValue < bool > ( "use-fake-desk-manager" ) ;
-        }
+        return configuration.GetValue < bool > ( "use-fake-desk-manager" ) ;
     }
 }

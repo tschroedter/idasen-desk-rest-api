@@ -1,8 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration ;
 
-namespace Idasen.RestApi.Interfaces;
+namespace Idasen.RestApi.Interfaces ;
 
 public interface IApiConfigurationProvider
 {
-    IConfigurationRoot GetConfigurationRoot();
+    IConfigurationRoot GetConfigurationRoot ( ) ;
 }

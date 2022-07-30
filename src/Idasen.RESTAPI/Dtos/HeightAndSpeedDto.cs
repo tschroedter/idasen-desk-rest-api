@@ -1,8 +1,7 @@
-﻿namespace Idasen.RESTAPI.Dtos
+﻿namespace Idasen.RESTAPI.Dtos ;
+
+public class HeightAndSpeedDto
 {
-    public class HeightAndSpeedDto
-    {
-        public uint Height { get ; set ; }
-        public int  Speed  { get ; set ; }
-    }
+    public uint Height { get ; set ; }
+    public int  Speed  { get ; set ; }
 }
