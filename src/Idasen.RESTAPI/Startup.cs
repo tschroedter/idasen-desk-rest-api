@@ -31,6 +31,7 @@ namespace Idasen.RESTAPI
                     .AddCheck < DeskManagerHealthCheck > ( "Desk Manager" ) ;
 
             services.AddTransient < ISettingsRepository , SettingsRepository > ( ) ;
+            services.AddTransient < ISettingsStorage , FileStorage > ( ) ;
 
             // ReSharper disable once RedundantArgumentDefaultValue
             services.AddSingleton ( CreateDeskManager ) ;

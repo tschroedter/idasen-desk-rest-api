@@ -1,80 +1,50 @@
-﻿using System ;
-using System.Threading.Tasks ;
-using Dapr.Client ;
+﻿using System.Threading.Tasks ;
+using Idasen.BluetoothLE.Core ;
 using Idasen.RESTAPI.Dtos ;
+using Idasen.RestApi.Interfaces ;
 using Idasen.RESTAPI.Interfaces ;
+using JetBrains.Annotations ;
 using Microsoft.Extensions.Logging ;
 
-namespace Idasen.RESTAPI.Repositories
+namespace Idasen.RESTAPI.Repositories ;
+
+public class SettingsRepository
+    : ISettingsRepository
 {
-    public class SettingsRepository
-        : ISettingsRepository
+    public SettingsRepository ( [ NotNull ] ILogger < SettingsRepository > logger ,
+                                [ NotNull ] ISettingsStorage               storage )
     {
-        public SettingsRepository ( ILogger < SettingsRepository > logger )
-        {
-            _logger = logger ;
+        Guard.ArgumentNotNull ( logger ,
+                                nameof ( logger ) ) ;
+        Guard.ArgumentNotNull ( storage ,
+                                nameof ( storage ) ) ;
 
-            _client = new DaprClientBuilder ( ).Build ( ) ;
-        }
-
-        public async Task < SettingsDto > GetSettingsById ( string id )
-        {
-            try
-            {
-                return await _client.GetStateAsync < SettingsDto > ( StoreName ,
-                                                                     id )
-                                    .ConfigureAwait ( false ) ;
-            }
-            catch ( Exception e )
-            {
-                _logger.LogError ( e ,
-                                   $"Failed to get settings for Id '{id}'" ) ;
-
-                return null ;
-            }
-        }
-
-        public Task < SettingsDto > GetDefaultSettings ( string id )
-        {
-            try
-            {
-                var dto = new SettingsDto ( ) ;
-
-                return Task.FromResult ( dto ) ;
-            }
-            catch ( Exception e )
-            {
-                _logger.LogError ( e ,
-                                   $"Failed to get default settings for Id '{id}'" ) ;
-
-                return null ;
-            }
-        }
-
-        public async Task < bool > InsertSettings ( SettingsDto dto )
-        {
-            try
-            {
-                await _client.SaveStateAsync ( StoreName ,
-                                               dto.Id ,
-                                               dto )
-                             .ConfigureAwait ( false ) ;
-
-                return false ;
-            }
-            catch ( Exception e )
-            {
-                _logger.LogError ( e ,
-                                   $"Failed to insert settings '{dto}'" ) ;
-
-                return false ;
-            }
-        }
-
-        private const string StoreName = "statestore" ;
-
-        private readonly DaprClient _client ;
-
-        private readonly ILogger < SettingsRepository > _logger ;
+        _logger  = logger ;
+        _storage = storage ;
     }
+
+    public Task < (bool , SettingsDto) > GetById ( string id )
+    {
+        _logger.LogInformation ( $"Id: {id}" ) ;
+
+        return _storage.TryLoadFromJson ( id ) ;
+    }
+
+    public Task < (bool , SettingsDto) > GetDefault ( string id )
+    {
+        _logger.LogInformation ( "Getting default settings" ) ;
+
+        return _storage.GetDefaultSettings ( id ) ;
+    }
+
+    public Task < (bool , SettingsDto) > AddOrUpdate ( SettingsDto dto )
+    {
+        _logger.LogInformation ( $"Id: {dto?.Id}" ) ;
+
+        return _storage.TrySaveAsJson ( dto ) ;
+    }
+
+    private readonly ILogger < SettingsRepository > _logger ;
+
+    private readonly ISettingsStorage _storage ;
 }
