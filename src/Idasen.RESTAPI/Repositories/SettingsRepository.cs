@@ -24,11 +24,11 @@ public class SettingsRepository
         _storage = storage ;
     }
 
-    public Task<(bool, IEnumerable<SettingsDto>)> GetAll()
+    public Task < (bool , IEnumerable < SettingsDto >) > GetAll ( )
     {
-        _logger.LogInformation(string.Empty);
+        _logger.LogInformation ( string.Empty ) ;
 
-        return _storage.TryLoadAllFromJson ();
+        return _storage.TryLoadAllFromJson ( ) ;
     }
 
     public Task < (bool , SettingsDto) > GetById ( string id )

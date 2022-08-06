@@ -151,37 +151,37 @@ public class DeskController : ControllerBase
         return Ok ( ) ;
     }
 
-    [Route( "settings")]
-    [HttpGet]
-    public async Task<IActionResult> SettingsGetAll()
-    {
-        _logger.LogInformation("DeskController.SettingsGetAll()");
-
-        if (!_manager.IsReady)
-            return StatusCode(500,
-                              "DeskManger isn't ready");
-
-        return await DoSettingsGetAll();
-    }
-
-    [Route( "settings")]
-    [HttpPut]
-    [HttpPost]
-    public async Task<IActionResult> SettingsPost([FromBody] SettingsDto dto)
-    {
-        _logger.LogInformation($"DeskController.SettingsPost({dto.Id}, {dto})");
-
-        if (!_manager.IsReady)
-            return StatusCode(500,
-                              "DeskManger isn't ready");
-
-        return await DoSettingsPost(dto.Id,
-                                    dto);
-    }
-
-    [Route ( "settings/{id}" ) ]
+    [ Route ( "settings" ) ]
     [ HttpGet ]
-    public async Task < IActionResult > SettingsGetById ( [FromQuery] string id )
+    public async Task < IActionResult > SettingsGetAll ( )
+    {
+        _logger.LogInformation ( "DeskController.SettingsGetAll()" ) ;
+
+        if ( ! _manager.IsReady )
+            return StatusCode ( 500 ,
+                                "DeskManger isn't ready" ) ;
+
+        return await DoSettingsGetAll ( ) ;
+    }
+
+    [ Route ( "settings" ) ]
+    [ HttpPut ]
+    [ HttpPost ]
+    public async Task < IActionResult > SettingsPost ( [ FromBody ] SettingsDto dto )
+    {
+        _logger.LogInformation ( $"DeskController.SettingsPost({dto.Id}, {dto})" ) ;
+
+        if ( ! _manager.IsReady )
+            return StatusCode ( 500 ,
+                                "DeskManger isn't ready" ) ;
+
+        return await DoSettingsPost ( dto.Id ,
+                                      dto ) ;
+    }
+
+    [ Route ( "settings/{id}" ) ]
+    [ HttpGet ]
+    public async Task < IActionResult > SettingsGetById ( [ FromQuery ] string id )
     {
         _logger.LogInformation ( $"DeskController.SettingsGetById({id})" ) ;
 
@@ -192,7 +192,7 @@ public class DeskController : ControllerBase
         return await DoSettingsGetById ( id ) ;
     }
 
-    [Route ( "settings/{id}" ) ]
+    [ Route ( "settings/{id}" ) ]
     [ HttpPut ]
     public async Task < IActionResult > SettingsPost ( string                   id ,
                                                        [ FromBody ] SettingsDto dto )
@@ -224,15 +224,15 @@ public class DeskController : ControllerBase
         return Ok ( ) ;
     }
 
-    private async Task<IActionResult> DoSettingsGetAll()
+    private async Task < IActionResult > DoSettingsGetAll ( )
     {
-        var (status, settings) = await _repository.GetAll()
-                                                  .ConfigureAwait(false);
+        var (status , settings) = await _repository.GetAll ( )
+                                                   .ConfigureAwait ( false ) ;
 
-        if (status)
-            return Ok(settings);
+        if ( status )
+            return Ok ( settings ) ;
 
-        return BadRequest("Failed to get all settings.");
+        return BadRequest ( "Failed to get all settings." ) ;
     }
 
     private async Task < IActionResult > DoSettingsGetById ( string id )

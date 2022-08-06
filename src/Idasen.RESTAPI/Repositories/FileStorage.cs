@@ -31,18 +31,18 @@ public class FileStorage : ISettingsStorage
             Directory.CreateDirectory ( Folder ) ;
     }
 
-    public async Task<(bool, IEnumerable<SettingsDto>)> TryLoadAllFromJson()
+    public async Task < (bool , IEnumerable < SettingsDto >) > TryLoadAllFromJson ( )
     {
         try
         {
-            return await DoTryLoadAllFromJson();
+            return await DoTryLoadAllFromJson ( ) ;
         }
-        catch (Exception e)
+        catch ( Exception e )
         {
-            _logger.LogError(e,
-                             "Failed to load all instances");
+            _logger.LogError ( e ,
+                               "Failed to load all instances" ) ;
 
-            return (false, null);
+            return ( false , null ) ;
         }
     }
 
@@ -94,10 +94,12 @@ public class FileStorage : ISettingsStorage
         }
     }
 
+    private const string FileType = "json" ;
+
     public string ApplicationData => Environment.GetFolderPath ( Environment.SpecialFolder.ApplicationData ) ;
     public string Folder          { get ; }
 
-    private async Task<(bool, IEnumerable<SettingsDto>)> DoTryLoadAllFromJson()
+    private async Task < (bool , IEnumerable < SettingsDto >) > DoTryLoadAllFromJson ( )
     {
         var files = Directory.GetFiles ( Folder ,
                                          $"*.{FileType}" ) ;
@@ -108,25 +110,25 @@ public class FileStorage : ISettingsStorage
         {
             var (success , dto) = await DoTryLoadByFullnameAsJson ( fullname ) ;
 
-            if (success)
-                dtos.Add ( dto );
+            if ( success )
+                dtos.Add ( dto ) ;
         }
 
-        return (true, dtos);
+        return ( true , dtos ) ;
     }
 
     private async Task < (bool , SettingsDto) > DoTryLoadByFullnameAsJson ( string fullname )
     {
         var id = GetIdFromFullname ( fullname ) ;
 
-        var (success , dto ) = await DoTryLoadFromJson ( id ) ;
+        var (success , dto) = await DoTryLoadFromJson ( id ) ;
 
         if ( success )
             return ( true , dto ) ;
 
         _logger.LogWarning ( $"Failed to load settings for id '{fullname}'" ) ;
 
-        return (true, dto) ;
+        return ( true , dto ) ;
     }
 
     private static string GetIdFromFullname ( string fullname )
@@ -146,8 +148,6 @@ public class FileStorage : ISettingsStorage
 
         return ( true , dto ) ;
     }
-
-    private const string FileType = "json" ;
 
     private string CreateFullname ( string id )
     {
