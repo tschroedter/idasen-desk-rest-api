@@ -1,4 +1,5 @@
 ﻿using System ;
+using System.Collections.Generic ;
 using System.IO ;
 using System.Text.Json ;
 using System.Threading.Tasks ;
@@ -28,6 +29,21 @@ public class FileStorage : ISettingsStorage
 
         if ( ! Directory.Exists ( Folder ) )
             Directory.CreateDirectory ( Folder ) ;
+    }
+
+    public async Task<(bool, IEnumerable<SettingsDto>)> TryLoadAllFromJson()
+    {
+        try
+        {
+            return await DoTryLoadAllFromJson();
+        }
+        catch (Exception e)
+        {
+            _logger.LogError(e,
+                             "Failed to load all instances");
+
+            return (false, null);
+        }
     }
 
     public async Task < (bool , SettingsDto ) > TrySaveAsJson ( SettingsDto dto )
@@ -81,6 +97,45 @@ public class FileStorage : ISettingsStorage
     public string ApplicationData => Environment.GetFolderPath ( Environment.SpecialFolder.ApplicationData ) ;
     public string Folder          { get ; }
 
+    private async Task<(bool, IEnumerable<SettingsDto>)> DoTryLoadAllFromJson()
+    {
+        var files = Directory.GetFiles ( Folder ,
+                                         $"*.{FileType}" ) ;
+
+        List < SettingsDto > dtos = new( ) ;
+
+        foreach ( var fullname in files )
+        {
+            var (success , dto) = await DoTryLoadByFullnameAsJson ( fullname ) ;
+
+            if (success)
+                dtos.Add ( dto );
+        }
+
+        return (true, dtos);
+    }
+
+    private async Task < (bool , SettingsDto) > DoTryLoadByFullnameAsJson ( string fullname )
+    {
+        var id = GetIdFromFullname ( fullname ) ;
+
+        var (success , dto ) = await DoTryLoadFromJson ( id ) ;
+
+        if ( success )
+            return ( true , dto ) ;
+
+        _logger.LogWarning ( $"Failed to load settings for id '{fullname}'" ) ;
+
+        return (true, dto) ;
+    }
+
+    private static string GetIdFromFullname ( string fullname )
+    {
+        return Path.GetFileName ( fullname )
+                   .Replace ( $".{FileType}" ,
+                              "" ) ;
+    }
+
     private async Task < (bool , SettingsDto) > DoTrySaveAsJson ( SettingsDto dto )
     {
         var fullname = CreateFullname ( dto.Id ) ;
@@ -92,10 +147,12 @@ public class FileStorage : ISettingsStorage
         return ( true , dto ) ;
     }
 
+    private const string FileType = "json" ;
+
     private string CreateFullname ( string id )
     {
         return Path.Combine ( Folder ,
-                              Path.GetFileName ( $"{id}.json" ) ) ;
+                              Path.GetFileName ( $"{id}.{FileType}" ) ) ;
     }
 
     private async Task < (bool , SettingsDto) > DoTryLoadFromJson ( string id )

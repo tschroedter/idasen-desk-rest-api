@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks ;
+﻿using System.Collections.Generic ;
+using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Core ;
 using Idasen.RESTAPI.Dtos ;
 using Idasen.RestApi.Interfaces ;
@@ -21,6 +22,13 @@ public class SettingsRepository
 
         _logger  = logger ;
         _storage = storage ;
+    }
+
+    public Task<(bool, IEnumerable<SettingsDto>)> GetAll()
+    {
+        _logger.LogInformation(string.Empty);
+
+        return _storage.TryLoadAllFromJson ();
     }
 
     public Task < (bool , SettingsDto) > GetById ( string id )
