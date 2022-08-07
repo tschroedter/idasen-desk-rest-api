@@ -3,7 +3,6 @@ using Idasen.BluetoothLE.Linak.Interfaces ;
 
 namespace Idasen.RESTAPI.Interfaces ;
 
-// todo make IDesk methods async
 public interface IRestDesk : IDesk
 {
     uint          Height { get ; }

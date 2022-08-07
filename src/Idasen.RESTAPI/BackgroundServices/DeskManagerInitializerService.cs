@@ -24,13 +24,13 @@ public class DeskManagerInitializerService : BackgroundService
         _manager = manager ;
     }
 
-    protected override async Task ExecuteAsync ( CancellationToken cancellationToken )
+    protected override async Task ExecuteAsync ( CancellationToken stoppingToken )
     {
         try
         {
             var success = false ;
 
-            while ( ! cancellationToken.IsCancellationRequested &&
+            while ( ! stoppingToken.IsCancellationRequested &&
                     ! success )
             {
                 _logger.LogInformation ( "Trying to initializing DeskManager..." ) ;

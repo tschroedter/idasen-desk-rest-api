@@ -26,7 +26,7 @@ public class SettingsRepository
 
     public Task < (bool , IEnumerable < SettingsDto >) > GetAll ( )
     {
-        _logger.LogInformation ( string.Empty ) ;
+        _logger.LogInformation ( "Get all settings" ) ;
 
         return _storage.TryLoadAllFromJson ( ) ;
     }
