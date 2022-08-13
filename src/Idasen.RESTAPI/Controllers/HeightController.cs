@@ -62,8 +62,7 @@ public class HeightController : ControllerBase
                                 "DeskManger isn't ready" ) ;
 
         await _writer.WriteAsync ( _command.ToHeight ( dto.Height ) ,
-                                   cancellationToken )
-                     .ConfigureAwait ( false ) ;
+                                   cancellationToken ) ;
 
         return Accepted ( _manager.Desk.Height ) ;
     }

@@ -39,7 +39,7 @@ public class DeskManagerCommandService : BackgroundService
             {
                 _logger.LogInformation ( $"Consumer Received: {message.CommandName}" ) ;
 
-                await ExecuteCommand ( message ).ConfigureAwait ( false ) ;
+                await ExecuteCommand ( message ) ;
             }
         }
         catch ( OperationCanceledException )
@@ -52,7 +52,7 @@ public class DeskManagerCommandService : BackgroundService
 
     private async Task ExecuteCommand ( ICommand message )
     {
-        var status = await message.Execute ( ).ConfigureAwait ( false ) ;
+        var status = await message.Execute ( ) ;
 
         if ( status )
             _logger.LogInformation ( $"Consumed command: {message.CommandName}" ) ;

@@ -46,8 +46,7 @@ public class ManualController : ControllerBase
                                 "DeskManger isn't ready" ) ;
 
         await _writer.WriteAsync ( _command.Up ( ) ,
-                                   cancellationToken )
-                     .ConfigureAwait ( false ) ;
+                                   cancellationToken ) ;
 
         return Ok ( ) ;
     }
@@ -64,8 +63,7 @@ public class ManualController : ControllerBase
                                 "DeskManger isn't ready" ) ;
 
         await _writer.WriteAsync ( _command.Down ( ) ,
-                                   cancellationToken )
-                     .ConfigureAwait ( false ) ;
+                                   cancellationToken ) ;
 
         return Ok ( ) ;
     }
@@ -81,9 +79,8 @@ public class ManualController : ControllerBase
             return StatusCode ( 500 ,
                                 "DeskManger isn't ready" ) ;
 
-        await _writer.WriteAsync ( _command.Stop ( ) ,
-                                   cancellationToken )
-                     .ConfigureAwait ( false ) ;
+        await _manager.Desk
+                      .MoveStopAsync ( ) ;
 
         return Ok ( ) ;
     }

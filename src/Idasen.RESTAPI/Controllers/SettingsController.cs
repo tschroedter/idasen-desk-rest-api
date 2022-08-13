@@ -82,8 +82,7 @@ public class SettingsController : ControllerBase
         if ( id != dto.Id )
             return BadRequest ( $"Failed Ids must match ('{id}' != '{dto.Id}')" ) ;
 
-        var (status , settings) = await _repository.AddOrUpdate ( dto )
-                                                   .ConfigureAwait ( false ) ;
+        var (status , settings) = await _repository.AddOrUpdate ( dto ) ;
 
         if ( ! status ||
              settings == null )
@@ -95,8 +94,7 @@ public class SettingsController : ControllerBase
 
     private async Task < IActionResult > DoSettingsGetAll ( )
     {
-        var (status , settings) = await _repository.GetAll ( )
-                                                   .ConfigureAwait ( false ) ;
+        var (status , settings) = await _repository.GetAll ( ) ;
 
         if ( status )
             return Ok ( settings ) ;
@@ -106,8 +104,7 @@ public class SettingsController : ControllerBase
 
     private async Task < IActionResult > DoSettingsGetById ( string id )
     {
-        var (status , settings) = await _repository.GetById ( id )
-                                                   .ConfigureAwait ( false ) ;
+        var (status , settings) = await _repository.GetById ( id ) ;
 
         if ( status )
             return Ok ( settings ) ;
@@ -115,8 +112,7 @@ public class SettingsController : ControllerBase
         _logger.LogInformation ( $"Failed to get settings for id '{id}'. " +
                                  "Trying to get default settings." ) ;
 
-        ( status , settings ) = await _repository.GetDefault ( id )
-                                                 .ConfigureAwait ( false ) ;
+        ( status , settings ) = await _repository.GetDefault ( id ) ;
 
         if ( status )
             return Ok ( settings ) ;

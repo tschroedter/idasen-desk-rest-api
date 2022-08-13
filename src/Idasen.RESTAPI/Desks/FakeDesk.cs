@@ -86,19 +86,26 @@ internal class FakeDesk : IRestDesk
 
     public Task < bool > MoveStopAsync ( )
     {
-        return DoAction ( DoMoveStop ) ;
+        DoMoveStop ( ) ; // execute immediately
+
+        return Task.FromResult ( true ) ;
     }
 
     public uint Height { get ; private set ; } = 6000u ;
 
     public int Speed { get ; private set ; }
 
-    public uint Step      { get ; set ; } = 100u ;
-    public int  StepSpeed { get ; set ; } = 25 ;
+    public uint Step { get ; set ; } = 100u ;
+
+    public int StepSpeed { get ; set ; } = 25 ;
 
     public TimeSpan DefaultStepSleep { get ; set ; } = TimeSpan.FromSeconds ( 0.5 ) ;
 
     public bool IsInUse { get ; private set ; }
+
+    public bool IsStopRequested { get ; private set ; }
+
+    public bool IsLocked { get ; private set ; }
 
     public Task < bool > MoveLockAsync ( )
     {
@@ -125,14 +132,25 @@ internal class FakeDesk : IRestDesk
 
     private void DoMoveTo ( uint targetHeight )
     {
-        if ( CheckIfIsInUse ( ) )
+        if ( IsLocked ||
+             CheckIfIsInUse ( ) )
             return ;
 
-        var steps      = Math.Abs ( ( ( int )targetHeight - ( int )Height ) / ( int )Step ) ;
+        DoMoveToSteps ( targetHeight ) ;
+    }
+
+    private void DoMoveToSteps ( uint targetHeight )
+    {
+        IsStopRequested = false ;
+
+        var steps      = CalculateSteps ( targetHeight ) ;
         var isMoveDown = targetHeight <= Height ;
 
         for ( var i = 1 ; i < steps ; i ++ )
         {
+            if ( IsStopRequested )
+                return ;
+
             if ( isMoveDown )
                 DoMoveDownOneStep ( ) ;
             else
@@ -143,6 +161,11 @@ internal class FakeDesk : IRestDesk
         Speed  = 0 ;
 
         FinishedMove ( ) ;
+    }
+
+    private int CalculateSteps ( uint targetHeight )
+    {
+        return Math.Abs ( ( ( int )targetHeight - ( int )Height ) / ( int )Step ) ;
     }
 
     private bool CheckIfIsInUse ( )
@@ -160,7 +183,8 @@ internal class FakeDesk : IRestDesk
 
     private void DoMoveUp ( )
     {
-        if ( CheckIfIsInUse ( ) )
+        if ( IsLocked ||
+             CheckIfIsInUse ( ) )
             return ;
 
         DoMoveUpOneStep ( ) ;
@@ -180,7 +204,8 @@ internal class FakeDesk : IRestDesk
 
     private void DoMoveDown ( )
     {
-        if ( CheckIfIsInUse ( ) )
+        if ( IsLocked ||
+             CheckIfIsInUse ( ) )
             return ;
 
         DoMoveDownOneStep ( ) ;
@@ -202,17 +227,19 @@ internal class FakeDesk : IRestDesk
     {
         Thread.Sleep ( DefaultStepSleep ) ;
 
+        IsStopRequested = true ;
+
         FinishedMove ( ) ;
     }
 
     private void DoMoveLock ( )
     {
-        // nothing to do
+        IsLocked = true ;
     }
 
     private void DoMoveUnlock ( )
     {
-        // nothing to do
+        IsLocked = false ;
     }
 
     private async Task < bool > DoAction ( Action action )
@@ -257,28 +284,21 @@ internal class FakeDesk : IRestDesk
         _heightChanged.OnNext ( Height ) ;
         _speedChanged.OnNext ( Speed ) ;
 
-        var detailsZero = new HeightSpeedDetails ( DateTimeOffset.Now ,
-                                                   Height ,
-                                                   0 ) ;
+        var details = new HeightSpeedDetails ( DateTimeOffset.Now ,
+                                               Height ,
+                                               0 ) ;
 
-        _heightAndSpeedChanged.OnNext ( detailsZero ) ;
+        _heightAndSpeedChanged.OnNext ( details ) ;
     }
 
-    private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes ( 1 ) ;
-
-    private readonly Subject < IEnumerable < byte > >
-        _deviceNameChanged = new( ) ;
-
-    private readonly Subject < uint > _finishedChanged = new( ) ;
-
-    private readonly Subject < HeightSpeedDetails >
-        _heightAndSpeedChanged = new( ) ;
-
-    private readonly Subject < uint > _heightChanged    = new( ) ;
-    private readonly object           _padlock          = new( ) ;
-    private readonly Subject < bool > _refreshedChanged = new( ) ;
-
-    private readonly Subject < int >         _speedChanged = new( ) ;
-    private          CancellationTokenSource _source ;
-    private          CancellationToken       _token ;
+    private readonly TimeSpan                         _defaultTimeout        = TimeSpan.FromMinutes ( 1 ) ;
+    private readonly Subject < IEnumerable < byte > > _deviceNameChanged     = new( ) ;
+    private readonly Subject < uint >                 _finishedChanged       = new( ) ;
+    private readonly Subject < HeightSpeedDetails >   _heightAndSpeedChanged = new( ) ;
+    private readonly Subject < uint >                 _heightChanged         = new( ) ;
+    private readonly object                           _padlock               = new( ) ;
+    private readonly Subject < bool >                 _refreshedChanged      = new( ) ;
+    private readonly Subject < int >                  _speedChanged          = new( ) ;
+    private          CancellationTokenSource          _source ;
+    private          CancellationToken                _token ;
 }

@@ -42,7 +42,7 @@ public class Startup
         services.AddHostedService < DeskManagerInitializerService > ( ) ;
         services.AddHostedService < DeskManagerCommandService > ( ) ;
 
-        var channel = Channel.CreateBounded < ICommand > ( 10 ) ;
+        var channel = Channel.CreateBounded < ICommand > ( 3 ) ;
         services.AddSingleton ( channel ) ;
 
         IChannelWriter writer = new ChannelWriter ( channel ) ;
