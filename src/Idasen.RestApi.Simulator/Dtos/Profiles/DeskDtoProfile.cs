@@ -1,9 +1,9 @@
 ﻿using AutoMapper ;
-using Idasen.BluetoothLE.Linak.Interfaces ;
-using Idasen.RestApi.Shared.Dtos;
+using Idasen.RestApi.Shared.Dtos ;
+using Idasen.RestApi.Simulator.Desks ;
 using JetBrains.Annotations ;
 
-namespace Idasen.RESTAPI.Dtos.Profiles ;
+namespace Idasen.RestApi.Simulator.Dtos.Profiles ;
 
 [ UsedImplicitly ]
 internal class DeskDtoProfile
@@ -11,7 +11,7 @@ internal class DeskDtoProfile
 {
     public DeskDtoProfile ( )
     {
-        CreateMap < IDesk , DeskDto > ( )
+        CreateMap < FakeDesk , DeskDto > ( )
            .ForMember ( dest => dest.BluetoothAddress ,
                         opt => opt.MapFrom ( src => src.BluetoothAddress ) )
            .ForMember ( dest => dest.BluetoothAddressType ,

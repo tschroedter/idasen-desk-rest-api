@@ -2,7 +2,7 @@
 using System.Threading ;
 using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Core ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 using JetBrains.Annotations ;
 using Microsoft.Extensions.Hosting ;
 using Microsoft.Extensions.Logging ;

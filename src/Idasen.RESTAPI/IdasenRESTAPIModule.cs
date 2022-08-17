@@ -3,7 +3,7 @@ using Autofac ;
 using Autofac.Extras.DynamicProxy ;
 using Idasen.Aop ;
 using Idasen.RESTAPI.Desks ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 
 namespace Idasen.RESTAPI ;
 

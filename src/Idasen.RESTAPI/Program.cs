@@ -1,39 +1,39 @@
 ﻿using System ;
+using Idasen.RESTAPI ;
 using Serilog ;
 using Topshelf ;
 
-namespace Idasen.RESTAPI ;
+namespace Idasen.RestApi;
 
 internal class Program
 {
-    private static void Main ( )
+    private static void Main()
     {
-        ConfigureLogger ( ) ;
+        ConfigureLogger();
 
-        var rc = HostFactory.Run ( x =>
-                                   {
-                                       x.Service < IdasenRestApi > ( s =>
-                                                                     {
-                                                                         s.ConstructUsing ( _ =>
-                                                                                                new
-                                                                                                    IdasenRestApi ( ) ) ;
-                                                                         s.WhenStarted ( tc => tc.Start ( ) ) ;
-                                                                         s.WhenStopped ( tc => tc.Stop ( ) ) ;
-                                                                     } ) ;
-                                       x.RunAsLocalSystem ( ) ;
+        var rc = HostFactory.Run(x =>
+        {
+            x.Service<IdasenRestApi>(s =>
+            {
+                s.ConstructUsing(_ => new IdasenRestApi());
+                s.WhenStarted(tc => tc.Start());
+                s.WhenStopped(tc => tc.Stop());
+            });
 
-                                       x.SetDescription ( "Idasen REST API Host" ) ;
-                                       x.SetDisplayName ( "Idasen REST API" ) ;
-                                       x.SetServiceName ( "Idasen REST API" ) ;
-                                       x.StartAutomatically ( ) ;
-                                       x.UseSerilog ( ) ;
-                                       //x.RunAs("username", "password");
-                                   } ) ;
+            x.RunAsLocalSystem();
 
-        var exitCode = ( int )Convert.ChangeType ( rc ,
-                                                   rc.GetTypeCode ( ) ) ;
+            x.SetDescription("Idasen REST API Host");
+            x.SetDisplayName("Idasen REST API");
+            x.SetServiceName("Idasen REST API");
+            x.StartAutomatically();
+            x.UseSerilog();
+            //x.RunAs("username", "password");
+        });
 
-        Environment.ExitCode = exitCode ;
+        var exitCode = ( int ) Convert.ChangeType ( rc ,
+                                                    rc.GetTypeCode ( ) ) ;
+
+        Environment.ExitCode = exitCode;
     }
 
     private static void ConfigureLogger ( )

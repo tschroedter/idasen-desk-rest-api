@@ -1,5 +1,5 @@
 ﻿using Idasen.RESTAPI.Filters ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 using Microsoft.AspNetCore.Mvc ;
 using Microsoft.Extensions.Logging ;
 

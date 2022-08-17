@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration ;
 
-namespace Idasen.RestApi.Interfaces ;
+namespace Idasen.RestApi.Shared.Interfaces ;
 
 public interface IApiConfigurationProvider
 {

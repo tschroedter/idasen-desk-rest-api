@@ -5,12 +5,14 @@ using System.Reactive.Linq ;
 using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Linak ;
 using Idasen.BluetoothLE.Linak.Interfaces ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 using Serilog ;
 
 namespace Idasen.RESTAPI.Desks ;
 
-public class RestDesk : IRestDesk
+public class RestDesk
+    : IRestDesk,
+      IDisposable
 {
     public RestDesk ( ILogger    logger ,
                       IScheduler scheduler ,

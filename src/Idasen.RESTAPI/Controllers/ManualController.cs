@@ -3,7 +3,7 @@ using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Core ;
 using Idasen.RESTAPI.Filters ;
 using Idasen.RestApi.Interfaces ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 using JetBrains.Annotations ;
 using Microsoft.AspNetCore.Mvc ;
 using Microsoft.Extensions.Logging ;

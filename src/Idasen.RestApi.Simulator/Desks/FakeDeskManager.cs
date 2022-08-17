@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks ;
-using Idasen.RESTAPI.Interfaces ;
+﻿using Idasen.RestApi.Shared.Interfaces ;
 
-namespace Idasen.RESTAPI.Desks ;
+namespace Idasen.RestApi.Simulator.Desks ;
 
 public class FakeDeskManager : IDeskManager
 {

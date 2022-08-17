@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic ;
 using System.Threading.Tasks ;
-using Idasen.RESTAPI.Dtos ;
+using Idasen.RestApi.Shared.Dtos ;
 
 namespace Idasen.RestApi.Interfaces ;
 

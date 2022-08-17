@@ -1,9 +1,6 @@
-﻿using System.Threading.Tasks ;
-using Idasen.BluetoothLE.Linak.Interfaces ;
+﻿namespace Idasen.RestApi.Shared.Interfaces ;
 
-namespace Idasen.RESTAPI.Interfaces ;
-
-public interface IRestDesk : IDesk
+public interface IRestDesk
 {
     uint          Height { get ; }
     int           Speed  { get ; }

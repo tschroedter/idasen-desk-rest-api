@@ -1,16 +1,11 @@
-﻿using System ;
-using System.Collections.Generic ;
-using System.Reactive.Subjects ;
-using System.Threading ;
-using System.Threading.Tasks ;
-using Idasen.BluetoothLE.Linak ;
-using Idasen.RESTAPI.Interfaces ;
+﻿using System.Reactive.Subjects ;
+using Idasen.RestApi.Shared.Interfaces ;
 
 // ReSharper disable UnusedMember.Global
 
-namespace Idasen.RESTAPI.Desks ;
+namespace Idasen.RestApi.Simulator.Desks ;
 
-internal class FakeDesk : IRestDesk
+public class FakeDesk : IRestDesk
 {
     public FakeDesk ( )
     {
@@ -20,9 +15,31 @@ internal class FakeDesk : IRestDesk
         DeviceName           = "Fake Desk Device" ;
     }
 
-    public void Dispose ( )
+    public Task < bool > MoveToAsync ( uint targetHeight )
     {
+        return DoAction ( ( ) => DoMoveTo ( targetHeight ) ) ;
     }
+
+    public Task < bool > MoveUpAsync ( )
+    {
+        return DoAction ( DoMoveUp ) ;
+    }
+
+    public Task < bool > MoveDownAsync ( )
+    {
+        return DoAction ( DoMoveDown ) ;
+    }
+
+    public Task < bool > MoveStopAsync ( )
+    {
+        DoMoveStop ( ) ; // execute immediately
+
+        return Task.FromResult ( true ) ;
+    }
+
+    public uint Height { get ; private set ; } = 6000u ;
+
+    public int Speed { get ; private set ; }
 
     public IObservable < IEnumerable < byte > > DeviceNameChanged     => _deviceNameChanged ;
     public IObservable < uint >                 HeightChanged         => _heightChanged ;
@@ -34,6 +51,18 @@ internal class FakeDesk : IRestDesk
     public ulong                                BluetoothAddress      { get ; }
     public string                               BluetoothAddressType  { get ; }
     public string                               DeviceName            { get ; }
+
+    public uint Step { get ; set ; } = 100u ;
+
+    public int StepSpeed { get ; set ; } = 25 ;
+
+    public TimeSpan DefaultStepSleep { get ; set ; } = TimeSpan.FromSeconds ( 0.5 ) ;
+
+    public bool IsInUse { get ; private set ; }
+
+    public bool IsStopRequested { get ; private set ; }
+
+    public bool IsLocked { get ; private set ; }
 
     public void Connect ( )
     {
@@ -68,44 +97,6 @@ internal class FakeDesk : IRestDesk
     {
         DoMoveUnlock ( ) ;
     }
-
-    public Task < bool > MoveToAsync ( uint targetHeight )
-    {
-        return DoAction ( ( ) => DoMoveTo ( targetHeight ) ) ;
-    }
-
-    public Task < bool > MoveUpAsync ( )
-    {
-        return DoAction ( DoMoveUp ) ;
-    }
-
-    public Task < bool > MoveDownAsync ( )
-    {
-        return DoAction ( DoMoveDown ) ;
-    }
-
-    public Task < bool > MoveStopAsync ( )
-    {
-        DoMoveStop ( ) ; // execute immediately
-
-        return Task.FromResult ( true ) ;
-    }
-
-    public uint Height { get ; private set ; } = 6000u ;
-
-    public int Speed { get ; private set ; }
-
-    public uint Step { get ; set ; } = 100u ;
-
-    public int StepSpeed { get ; set ; } = 25 ;
-
-    public TimeSpan DefaultStepSleep { get ; set ; } = TimeSpan.FromSeconds ( 0.5 ) ;
-
-    public bool IsInUse { get ; private set ; }
-
-    public bool IsStopRequested { get ; private set ; }
-
-    public bool IsLocked { get ; private set ; }
 
     public Task < bool > MoveLockAsync ( )
     {
@@ -299,6 +290,6 @@ internal class FakeDesk : IRestDesk
     private readonly object                           _padlock               = new( ) ;
     private readonly Subject < bool >                 _refreshedChanged      = new( ) ;
     private readonly Subject < int >                  _speedChanged          = new( ) ;
-    private          CancellationTokenSource          _source ;
+    private          CancellationTokenSource?         _source ;
     private          CancellationToken                _token ;
 }

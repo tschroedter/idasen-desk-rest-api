@@ -1,4 +1,4 @@
-﻿namespace Idasen.RESTAPI.Dtos ;
+﻿namespace Idasen.RestApi.Shared.Dtos ;
 
 public class SpeedDto
 {

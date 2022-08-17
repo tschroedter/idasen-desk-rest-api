@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic ;
 using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Core ;
-using Idasen.RESTAPI.Dtos ;
 using Idasen.RestApi.Interfaces ;
 using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Dtos ;
 using JetBrains.Annotations ;
 using Microsoft.Extensions.Logging ;
 

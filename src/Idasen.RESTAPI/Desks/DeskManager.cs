@@ -4,7 +4,7 @@ using System.Threading ;
 using System.Threading.Tasks ;
 using Idasen.BluetoothLE.Core ;
 using Idasen.BluetoothLE.Linak.Interfaces ;
-using Idasen.RESTAPI.Interfaces ;
+using Idasen.RestApi.Shared.Interfaces ;
 using JetBrains.Annotations ;
 using Polly ;
 using Serilog ;

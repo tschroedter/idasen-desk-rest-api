@@ -5,15 +5,17 @@ using FluentValidation.AspNetCore ;
 using Idasen.BluetoothLE.Core ;
 using Idasen.RestApi.BackgroundServices ;
 using Idasen.RestApi.BackgroundServices.DeskCommands ;
-using Idasen.RESTAPI.Desks ;
 using Idasen.RESTAPI.Filters ;
 using Idasen.RestApi.Interfaces ;
 using Idasen.RESTAPI.Interfaces ;
 using Idasen.RESTAPI.Repositories ;
+using Idasen.RestApi.Shared.Interfaces ;
+using Idasen.RestApi.Simulator.Desks ;
 using Microsoft.AspNetCore.Builder ;
 using Microsoft.Extensions.Configuration ;
 using Microsoft.Extensions.DependencyInjection ;
 using Microsoft.Extensions.Logging ;
+using DeskManagerRegistrations = Idasen.RESTAPI.Desks.DeskManagerRegistrations ;
 
 namespace Idasen.RESTAPI ;
 
@@ -22,6 +24,7 @@ public class Startup
     public void ConfigureServices ( IServiceCollection services )
     {
         services.AddAutoMapper ( Assembly.GetExecutingAssembly ( ) ) ;
+        services.AddAutoMapper ( Assembly.GetAssembly ( typeof ( FakeDesk ) ) ) ;
 
         services.AddControllers ( options => { options.Filters.Add ( new ValidationFilter ( ) ) ; } ) ;
 
@@ -85,7 +88,7 @@ public class Startup
         var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
 
         return useFake
-                   ? DeskManagerRegistrations.CreateFakeDeskManager ( )
+                   ? RestApi.Simulator.Desks.DeskManagerRegistrations.CreateFakeDeskManager ( )
                    : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
     }
 

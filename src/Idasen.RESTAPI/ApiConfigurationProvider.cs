@@ -1,4 +1,4 @@
-﻿using Idasen.RestApi.Interfaces ;
+﻿using Idasen.RestApi.Shared.Interfaces ;
 using Microsoft.Extensions.Configuration ;
 
 namespace Idasen.RESTAPI ;

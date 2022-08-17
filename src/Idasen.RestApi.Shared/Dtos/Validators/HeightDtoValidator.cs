@@ -1,7 +1,7 @@
 ﻿using FluentValidation ;
 using JetBrains.Annotations ;
 
-namespace Idasen.RESTAPI.Dtos.Validators ;
+namespace Idasen.RestApi.Shared.Dtos.Validators ;
 
 [ UsedImplicitly ]
 public class HeightDtoValidator
