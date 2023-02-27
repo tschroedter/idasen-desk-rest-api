@@ -1,5 +1,5 @@
 ﻿using System ;
-using Idasen.RESTAPI ;
+using Idasen.RestApi.Shared ;
 using Serilog ;
 using Topshelf ;
 

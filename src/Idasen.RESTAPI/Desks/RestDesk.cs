@@ -7,8 +7,9 @@ using Idasen.BluetoothLE.Linak ;
 using Idasen.BluetoothLE.Linak.Interfaces ;
 using Idasen.RestApi.Shared.Interfaces ;
 using Serilog ;
+// ReSharper disable UnusedMember.Global
 
-namespace Idasen.RESTAPI.Desks ;
+namespace Idasen.RestApi.Desks ;
 
 public class RestDesk
     : IRestDesk,

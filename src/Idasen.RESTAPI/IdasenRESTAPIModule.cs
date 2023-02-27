@@ -2,10 +2,10 @@
 using Autofac ;
 using Autofac.Extras.DynamicProxy ;
 using Idasen.Aop ;
-using Idasen.RESTAPI.Desks ;
+using Idasen.RestApi.Desks ;
 using Idasen.RestApi.Shared.Interfaces ;
 
-namespace Idasen.RESTAPI ;
+namespace Idasen.RestApi ;
 
 // ReSharper disable once InconsistentNaming
 [ ExcludeFromCodeCoverage ]

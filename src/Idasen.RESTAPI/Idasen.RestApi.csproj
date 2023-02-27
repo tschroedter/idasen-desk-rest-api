@@ -33,8 +33,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Idasen.RestApi.Fake\Idasen.RestApi.Fake.csproj" />
     <ProjectReference Include="..\Idasen.RestApi.Shared\Idasen.RestApi.Shared.csproj" />
-    <ProjectReference Include="..\Idasen.RestApi.Simulator\Idasen.RestApi.Simulator.csproj" />
   </ItemGroup>
 
   <ItemGroup>

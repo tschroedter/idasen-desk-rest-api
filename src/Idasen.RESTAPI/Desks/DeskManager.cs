@@ -9,7 +9,7 @@ using JetBrains.Annotations ;
 using Polly ;
 using Serilog ;
 
-namespace Idasen.RESTAPI.Desks ;
+namespace Idasen.RestApi.Desks ;
 
 internal class DeskManager
     : IDeskManager
@@ -58,7 +58,6 @@ internal class DeskManager
 
     public bool IsReady => Desk != null ;
 
-    [ CanBeNull ]
     public IRestDesk Desk { get ; private set ; }
 
     private const string DefaultDeviceName              = "Desk" ;

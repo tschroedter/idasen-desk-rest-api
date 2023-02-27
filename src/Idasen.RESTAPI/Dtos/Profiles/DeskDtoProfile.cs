@@ -1,9 +1,9 @@
 ﻿using AutoMapper ;
 using Idasen.BluetoothLE.Linak.Interfaces ;
-using Idasen.RestApi.Shared.Dtos;
+using Idasen.RestApi.Shared.Dtos ;
 using JetBrains.Annotations ;
 
-namespace Idasen.RESTAPI.Dtos.Profiles ;
+namespace Idasen.RestApi.Dtos.Profiles ;
 
 [ UsedImplicitly ]
 internal class DeskDtoProfile

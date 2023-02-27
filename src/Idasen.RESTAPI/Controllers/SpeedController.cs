@@ -1,10 +1,10 @@
-﻿using Idasen.RESTAPI.Filters ;
-using Idasen.RestApi.Shared.Dtos ;
+﻿using Idasen.RestApi.Shared.Dtos ;
+using Idasen.RestApi.Shared.Filters ;
 using Idasen.RestApi.Shared.Interfaces ;
 using Microsoft.AspNetCore.Mvc ;
 using Microsoft.Extensions.Logging ;
 
-namespace Idasen.RESTAPI.Controllers ;
+namespace Idasen.RestApi.Controllers ;
 
 [ ApiKeyAuth ]
 [ Route ( "desk/speed" ) ]
@@ -22,7 +22,7 @@ public class SpeedController : ControllerBase
     {
         _logger.LogInformation ( "DeskController.GetSpeed()" ) ;
 
-        if ( ! _manager.IsReady )
+        if ( _manager.Desk == null )
             return StatusCode ( 500 ,
                                 "DeskManger isn't ready" ) ;
 

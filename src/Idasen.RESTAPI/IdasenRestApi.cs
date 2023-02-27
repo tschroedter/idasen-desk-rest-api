@@ -1,11 +1,12 @@
 ﻿using System ;
 using System.Threading ;
 using System.Threading.Tasks ;
+using Idasen.RestApi.Shared ;
 using Microsoft.AspNetCore.Hosting ;
 using Microsoft.Extensions.Configuration ;
 using Serilog ;
 
-namespace Idasen.RESTAPI ;
+namespace Idasen.RestApi ;
 
 public class IdasenRestApi
 {

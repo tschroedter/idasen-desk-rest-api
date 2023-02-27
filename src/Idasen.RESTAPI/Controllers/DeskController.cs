@@ -1,11 +1,11 @@
 ﻿using AutoMapper ;
-using Idasen.RESTAPI.Filters ;
 using Idasen.RestApi.Shared.Dtos ;
+using Idasen.RestApi.Shared.Filters ;
 using Idasen.RestApi.Shared.Interfaces ;
 using Microsoft.AspNetCore.Mvc ;
 using Microsoft.Extensions.Logging ;
 
-namespace Idasen.RESTAPI.Controllers ;
+namespace Idasen.RestApi.Controllers ;
 
 [ ApiKeyAuth ]
 [ Route ( "desk/" ) ]

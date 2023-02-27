@@ -8,7 +8,7 @@ using Idasen.RestApi.Shared.Interfaces ;
 using JetBrains.Annotations ;
 using Microsoft.Extensions.Configuration ;
 
-namespace Idasen.RESTAPI.Desks ;
+namespace Idasen.RestApi.Desks ;
 
 public static class DeskManagerRegistrations
 {

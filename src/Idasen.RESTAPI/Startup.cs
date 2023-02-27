@@ -2,22 +2,21 @@
 using System.Reflection ;
 using System.Threading.Channels ;
 using FluentValidation.AspNetCore ;
-using Idasen.BluetoothLE.Core ;
-using Idasen.RestApi.BackgroundServices ;
-using Idasen.RestApi.BackgroundServices.DeskCommands ;
-using Idasen.RESTAPI.Filters ;
-using Idasen.RestApi.Interfaces ;
-using Idasen.RESTAPI.Interfaces ;
-using Idasen.RESTAPI.Repositories ;
+using Idasen.RestApi.Fake.Desks ;
+using Idasen.RestApi.Shared ;
+using Idasen.RestApi.Shared.BackgroundServices ;
+using Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
+using Idasen.RestApi.Shared.Filters ;
 using Idasen.RestApi.Shared.Interfaces ;
-using Idasen.RestApi.Simulator.Desks ;
+using Idasen.RestApi.Shared.Repositories ;
 using Microsoft.AspNetCore.Builder ;
 using Microsoft.Extensions.Configuration ;
 using Microsoft.Extensions.DependencyInjection ;
 using Microsoft.Extensions.Logging ;
-using DeskManagerRegistrations = Idasen.RESTAPI.Desks.DeskManagerRegistrations ;
+using DeskManagerRegistrations = Idasen.RestApi.Desks.DeskManagerRegistrations ;
+using Guard = Idasen.BluetoothLE.Core.Guard ;
 
-namespace Idasen.RESTAPI ;
+namespace Idasen.RestApi ;
 
 public class Startup
 {
@@ -28,10 +27,8 @@ public class Startup
 
         services.AddControllers ( options => { options.Filters.Add ( new ValidationFilter ( ) ) ; } ) ;
 
-        services.AddFluentValidation ( options =>
-                                       {
-                                           options.RegisterValidatorsFromAssemblyContaining < Startup > ( ) ;
-                                       } ) ;
+        services.AddFluentValidationAutoValidation (  )
+                .AddFluentValidationClientsideAdapters ( ) ;
 
         services.AddHealthChecks ( )
                 .AddCheck < DeskManagerHealthCheck > ( "Desk Manager" ) ;
@@ -88,7 +85,7 @@ public class Startup
         var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
 
         return useFake
-                   ? RestApi.Simulator.Desks.DeskManagerRegistrations.CreateFakeDeskManager ( )
+                   ? Fake.Desks.DeskManagerRegistrations.CreateFakeDeskManager ( )
                    : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
     }
 
