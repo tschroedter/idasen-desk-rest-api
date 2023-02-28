@@ -6,10 +6,10 @@ namespace Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
 public class CommandFactory : ICommandFactory
 {
     public CommandFactory ( ILogger < CommandFactory > logger ,
-                            Func < Up >                            upFactory ,
-                            Func < Down >                          downFactory ,
-                            Func < Stop >                          stopFactory ,
-                            Func < uint , ToHeight >               toHeightFactory )
+                            Func < Up >                upFactory ,
+                            Func < Down >              downFactory ,
+                            Func < Stop >              stopFactory ,
+                            Func < uint , ToHeight >   toHeightFactory )
     {
         Guard.ArgumentNotNull ( logger ,
                                 nameof ( logger ) ) ;

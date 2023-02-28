@@ -5,8 +5,8 @@ namespace Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
 
 public class Up : CommandBase
 {
-    public Up ( ILogger < Up >  logger ,
-                IDeskManager manager )
+    public Up ( ILogger < Up > logger ,
+                IDeskManager   manager )
         : base ( logger ,
                  manager )
     {

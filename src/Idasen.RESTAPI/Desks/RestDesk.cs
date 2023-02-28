@@ -7,12 +7,13 @@ using Idasen.BluetoothLE.Linak ;
 using Idasen.BluetoothLE.Linak.Interfaces ;
 using Idasen.RestApi.Shared.Interfaces ;
 using Serilog ;
+
 // ReSharper disable UnusedMember.Global
 
 namespace Idasen.RestApi.Desks ;
 
 public class RestDesk
-    : IRestDesk,
+    : IRestDesk ,
       IDisposable
 {
     public RestDesk ( ILogger    logger ,
@@ -34,6 +35,29 @@ public class RestDesk
     {
         _disposable.Dispose ( ) ;
         _desk.Dispose ( ) ;
+    }
+
+    public uint Height { get ; private set ; }
+    public int  Speed  { get ; private set ; }
+
+    public Task < bool > MoveToAsync ( uint targetHeight )
+    {
+        return DoAction ( ( ) => MoveTo ( targetHeight ) ) ;
+    }
+
+    public Task < bool > MoveUpAsync ( )
+    {
+        return DoAction ( MoveUp ) ;
+    }
+
+    public Task < bool > MoveDownAsync ( )
+    {
+        return DoAction ( MoveDown ) ;
+    }
+
+    public Task < bool > MoveStopAsync ( )
+    {
+        return DoAction ( MoveStop ) ;
     }
 
     public IObservable < IEnumerable < byte > > DeviceNameChanged => _desk.DeviceNameChanged ;
@@ -89,29 +113,6 @@ public class RestDesk
     public void MoveUnlock ( )
     {
         _desk.MoveUnlock ( ) ;
-    }
-
-    public uint Height { get ; private set ; }
-    public int  Speed  { get ; private set ; }
-
-    public Task < bool > MoveToAsync ( uint targetHeight )
-    {
-        return DoAction ( ( ) => MoveTo ( targetHeight ) ) ;
-    }
-
-    public Task < bool > MoveUpAsync ( )
-    {
-        return DoAction ( MoveUp ) ;
-    }
-
-    public Task < bool > MoveDownAsync ( )
-    {
-        return DoAction ( MoveDown ) ;
-    }
-
-    public Task < bool > MoveStopAsync ( )
-    {
-        return DoAction ( MoveStop ) ;
     }
 
     private Task OnHeightAndSpeedChanged ( HeightSpeedDetails details )

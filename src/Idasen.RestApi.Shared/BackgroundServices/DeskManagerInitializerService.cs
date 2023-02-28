@@ -8,7 +8,7 @@ public class DeskManagerInitializerService : BackgroundService
 {
     public DeskManagerInitializerService (
         ILogger < DeskManagerInitializerService > logger ,
-        IDeskManager                           manager )
+        IDeskManager                              manager )
     {
         Guard.ArgumentNotNull ( logger ,
                                 nameof ( logger ) ) ;

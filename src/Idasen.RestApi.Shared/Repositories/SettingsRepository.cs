@@ -8,7 +8,7 @@ public class SettingsRepository
     : ISettingsRepository
 {
     public SettingsRepository ( ILogger < SettingsRepository > logger ,
-                                ISettingsStorage            storage )
+                                ISettingsStorage               storage )
     {
         Guard.ArgumentNotNull ( logger ,
                                 nameof ( logger ) ) ;

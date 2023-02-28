@@ -12,7 +12,7 @@ public class ManualController : ControllerBase
     public ManualController ( ILogger < DeskController > logger ,
                               IDeskManager               manager ,
                               ICommandFactory            command ,
-                              IChannelWriter          writer )
+                              IChannelWriter             writer )
     {
         Guard.ArgumentNotNull ( manager ,
                                 nameof ( manager ) ) ;

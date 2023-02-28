@@ -55,13 +55,13 @@ public abstract class CommandBase : ICommand
         }
     }
 
-    protected bool IsDeskValid()
+    protected bool IsDeskValid ( )
     {
-        if (Manager.Desk != null) return true;
+        if ( Manager.Desk != null ) return true ;
 
-        Logger.LogWarning("Desk is null");
+        Logger.LogWarning ( "Desk is null" ) ;
 
-        return false;
+        return false ;
     }
 
     private void LogStatus ( bool status )

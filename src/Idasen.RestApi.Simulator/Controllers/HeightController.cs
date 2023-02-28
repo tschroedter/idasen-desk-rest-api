@@ -13,7 +13,7 @@ public class HeightController : ControllerBase
     public HeightController ( ILogger < DeskController > logger ,
                               IDeskManager               manager ,
                               ICommandFactory            command ,
-                              IChannelWriter          writer )
+                              IChannelWriter             writer )
     {
         Guard.ArgumentNotNull ( logger ,
                                 nameof ( logger ) ) ;

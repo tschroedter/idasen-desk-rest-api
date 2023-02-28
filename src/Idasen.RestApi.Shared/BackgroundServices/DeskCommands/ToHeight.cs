@@ -5,9 +5,9 @@ namespace Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
 
 public class ToHeight : CommandBase
 {
-    public ToHeight ( ILogger < Up >  logger ,
-                      IDeskManager manager ,
-                      uint            targetHeight )
+    public ToHeight ( ILogger < Up > logger ,
+                      IDeskManager   manager ,
+                      uint           targetHeight )
         : base ( logger ,
                  manager )
     {

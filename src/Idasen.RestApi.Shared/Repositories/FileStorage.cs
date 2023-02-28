@@ -158,14 +158,14 @@ public class FileStorage : ISettingsStorage
             _logger.LogError ( $"Failed to load settings for id '{id}' " +
                                $"because file '{fullname}' doesn't exist" ) ;
 
-            return ( false , SettingsDto.Failed) ;
+            return ( false , SettingsDto.Failed ) ;
         }
 
         var json = await File.ReadAllTextAsync ( fullname ) ;
 
-        SettingsDto dto = JsonSerializer.Deserialize<SettingsDto>(json) ?? SettingsDto.Failed;
+        var dto = JsonSerializer.Deserialize < SettingsDto > ( json ) ?? SettingsDto.Failed ;
 
-        return ( dto != SettingsDto.Failed, dto ) ;
+        return ( dto != SettingsDto.Failed , dto ) ;
     }
 
     private readonly ILogger < FileStorage > _logger ;

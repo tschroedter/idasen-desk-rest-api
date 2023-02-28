@@ -5,8 +5,8 @@ namespace Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
 
 public class Stop : CommandBase
 {
-    public Stop ( ILogger < Up >  logger ,
-                  IDeskManager manager )
+    public Stop ( ILogger < Up > logger ,
+                  IDeskManager   manager )
         : base ( logger ,
                  manager )
     {

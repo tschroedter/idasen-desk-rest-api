@@ -1,6 +1,4 @@
-﻿
-
-// ReSharper disable UnusedMember.Global
+﻿// ReSharper disable UnusedMember.Global
 
 using System.Reactive.Subjects ;
 using Idasen.RestApi.Shared.Interfaces ;
@@ -284,7 +282,7 @@ public class FakeDesk : IRestDesk
         _heightAndSpeedChanged.OnNext ( details ) ;
     }
 
-    private readonly TimeSpan _defaultTimeout = TimeSpan.FromMinutes ( 1 ) ;
+    private readonly TimeSpan                         _defaultTimeout        = TimeSpan.FromMinutes ( 1 ) ;
     private readonly Subject < IEnumerable < byte > > _deviceNameChanged     = new( ) ;
     private readonly Subject < uint >                 _finishedChanged       = new( ) ;
     private readonly Subject < HeightSpeedDetails >   _heightAndSpeedChanged = new( ) ;

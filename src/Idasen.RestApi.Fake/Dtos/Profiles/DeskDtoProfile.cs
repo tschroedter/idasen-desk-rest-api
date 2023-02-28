@@ -1,4 +1,5 @@
 ﻿using AutoMapper ;
+using Idasen.RestApi.Fake.Desks ;
 using Idasen.RestApi.Shared.Dtos ;
 using JetBrains.Annotations ;
 
@@ -10,7 +11,7 @@ internal class DeskDtoProfile
 {
     public DeskDtoProfile ( )
     {
-        CreateMap < Desks.FakeDesk , DeskDto > ( )
+        CreateMap < FakeDesk , DeskDto > ( )
            .ForMember ( dest => dest.BluetoothAddress ,
                         opt => opt.MapFrom ( src => src.BluetoothAddress ) )
            .ForMember ( dest => dest.BluetoothAddressType ,

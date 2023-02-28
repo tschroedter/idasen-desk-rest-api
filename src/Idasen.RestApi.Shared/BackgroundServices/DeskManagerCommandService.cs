@@ -8,7 +8,7 @@ public class DeskManagerCommandService : BackgroundService
 {
     public DeskManagerCommandService (
         ILogger < DeskManagerInitializerService > logger ,
-        IChannelReader                         reader )
+        IChannelReader                            reader )
     {
         Guard.ArgumentNotNull ( logger ,
                                 nameof ( logger ) ) ;

@@ -13,7 +13,6 @@ using Microsoft.AspNetCore.Builder ;
 using Microsoft.Extensions.Configuration ;
 using Microsoft.Extensions.DependencyInjection ;
 using Microsoft.Extensions.Logging ;
-using DeskManagerRegistrations = Idasen.RestApi.Desks.DeskManagerRegistrations ;
 using Guard = Idasen.BluetoothLE.Core.Guard ;
 
 namespace Idasen.RestApi ;
@@ -27,7 +26,7 @@ public class Startup
 
         services.AddControllers ( options => { options.Filters.Add ( new ValidationFilter ( ) ) ; } ) ;
 
-        services.AddFluentValidationAutoValidation (  )
+        services.AddFluentValidationAutoValidation ( )
                 .AddFluentValidationClientsideAdapters ( ) ;
 
         services.AddHealthChecks ( )
@@ -85,8 +84,8 @@ public class Startup
         var useFake = GetUseFakeDeskManager ( serviceProvider ) ;
 
         return useFake
-                   ? Fake.Desks.DeskManagerRegistrations.CreateFakeDeskManager ( )
-                   : DeskManagerRegistrations.CreateRealDeskManager ( ) ;
+                   ? DeskManagerRegistrations.CreateFakeDeskManager ( )
+                   : Desks.DeskManagerRegistrations.CreateRealDeskManager ( ) ;
     }
 
     private static bool GetUseFakeDeskManager ( IServiceProvider serviceProvider )

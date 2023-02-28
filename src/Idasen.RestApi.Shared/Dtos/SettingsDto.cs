@@ -17,7 +17,7 @@ public class SettingsDto
     public        ulong       DeviceAddress           { get ; set ; } = DefaultDeviceAddress ;
     public        uint        DeviceMonitoringTimeout { get ; set ; } = DefaultDeviceMonitoringTimeout ;
     public        bool        DeviceLocked            { get ; set ; } = DefaultLocked ;
-    public static SettingsDto Failed                  { get ; }       = new ( ) { DeviceName = "Failed" } ;
+    public static SettingsDto Failed                  { get ; }       = new( ) { DeviceName = "Failed" } ;
 
     public override string ToString ( )
     {
