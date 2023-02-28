@@ -1,5 +1,4 @@
 ﻿using Idasen.RestApi.Shared.Interfaces ;
-using JetBrains.Annotations ;
 using Microsoft.Extensions.Diagnostics.HealthChecks ;
 
 namespace Idasen.RestApi.Shared ;

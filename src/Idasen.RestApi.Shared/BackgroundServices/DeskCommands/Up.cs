@@ -16,6 +16,8 @@ public class Up : CommandBase
 
     protected override Task < bool > ExecuteDeskCommand ( )
     {
-        return Manager.Desk.MoveUpAsync ( ) ;
+        return ! IsDeskValid ( )
+                   ? Task.FromResult ( false )
+                   : Manager.Desk!.MoveUpAsync ( ) ;
     }
 }

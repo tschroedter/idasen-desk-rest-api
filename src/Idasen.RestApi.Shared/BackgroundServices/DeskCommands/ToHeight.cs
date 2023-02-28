@@ -20,6 +20,8 @@ public class ToHeight : CommandBase
 
     protected override Task < bool > ExecuteDeskCommand ( )
     {
-        return Manager.Desk.MoveToAsync ( TargetHeight ) ;
+        return ! IsDeskValid ( )
+                   ? Task.FromResult ( false )
+                   : Manager.Desk!.MoveToAsync ( TargetHeight ) ;
     }
 }

@@ -42,7 +42,7 @@ public class SettingsRepository
 
     public Task < (bool , SettingsDto) > AddOrUpdate ( SettingsDto dto )
     {
-        _logger.LogInformation ( $"Id: {dto?.Id}" ) ;
+        _logger.LogInformation ( $"Id: {dto.Id}" ) ;
 
         return _storage.TrySaveAsJson ( dto ) ;
     }

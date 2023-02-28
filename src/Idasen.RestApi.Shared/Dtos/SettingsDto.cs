@@ -10,13 +10,14 @@ public class SettingsDto
     private const string DefaultDeviceName              = "Desk" ;
     private const ulong  DefaultDeviceAddress           = 250635178951455u ;
 
-    public string Id                      { get ; set ; } = DefaultId ;
-    public uint   Seating                 { get ; set ; } = DefaultHeightSeating ;
-    public uint   Standing                { get ; set ; } = DefaultHeightStanding ;
-    public string DeviceName              { get ; set ; } = DefaultDeviceName ;
-    public ulong  DeviceAddress           { get ; set ; } = DefaultDeviceAddress ;
-    public uint   DeviceMonitoringTimeout { get ; set ; } = DefaultDeviceMonitoringTimeout ;
-    public bool   DeviceLocked            { get ; set ; } = DefaultLocked ;
+    public        string      Id                      { get ; set ; } = DefaultId ;
+    public        uint        Seating                 { get ; set ; } = DefaultHeightSeating ;
+    public        uint        Standing                { get ; set ; } = DefaultHeightStanding ;
+    public        string      DeviceName              { get ; set ; } = DefaultDeviceName ;
+    public        ulong       DeviceAddress           { get ; set ; } = DefaultDeviceAddress ;
+    public        uint        DeviceMonitoringTimeout { get ; set ; } = DefaultDeviceMonitoringTimeout ;
+    public        bool        DeviceLocked            { get ; set ; } = DefaultLocked ;
+    public static SettingsDto Failed                  { get ; }       = new ( ) { DeviceName = "Failed" } ;
 
     public override string ToString ( )
     {

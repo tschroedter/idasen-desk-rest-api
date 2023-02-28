@@ -36,7 +36,7 @@ public class FileStorage : ISettingsStorage
             _logger.LogError ( e ,
                                "Failed to load all instances" ) ;
 
-            return ( false , null ) ;
+            return ( false , Array.Empty < SettingsDto > ( ) ) ;
         }
     }
 
@@ -49,9 +49,9 @@ public class FileStorage : ISettingsStorage
         catch ( Exception e )
         {
             _logger.LogError ( e ,
-                               $"Failed to save instance for '{dto?.Id}'" ) ;
+                               $"Failed to save instance for '{dto.Id}'" ) ;
 
-            return ( false , null ) ;
+            return ( false , SettingsDto.Failed ) ;
         }
     }
 
@@ -67,7 +67,7 @@ public class FileStorage : ISettingsStorage
                                $"Failed to load settings for '{id}' " +
                                $"because of '{e.Message}'" ) ;
 
-            return ( false , null ) ;
+            return ( false , SettingsDto.Failed ) ;
         }
     }
 
@@ -84,7 +84,7 @@ public class FileStorage : ISettingsStorage
             _logger.LogError ( e ,
                                "Failed to get default settings" ) ;
 
-            return Task.FromResult ( ( false , ( SettingsDto )null ) ) ;
+            return Task.FromResult ( ( false , SettingsDto.Failed ) ) ;
         }
     }
 
@@ -158,14 +158,14 @@ public class FileStorage : ISettingsStorage
             _logger.LogError ( $"Failed to load settings for id '{id}' " +
                                $"because file '{fullname}' doesn't exist" ) ;
 
-            return ( false , null ) ;
+            return ( false , SettingsDto.Failed) ;
         }
 
         var json = await File.ReadAllTextAsync ( fullname ) ;
 
-        var dto = JsonSerializer.Deserialize < SettingsDto > ( json ) ;
+        SettingsDto dto = JsonSerializer.Deserialize<SettingsDto>(json) ?? SettingsDto.Failed;
 
-        return ( dto != null , dto ) ;
+        return ( dto != SettingsDto.Failed, dto ) ;
     }
 
     private readonly ILogger < FileStorage > _logger ;

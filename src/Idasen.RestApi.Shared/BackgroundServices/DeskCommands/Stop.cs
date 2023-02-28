@@ -16,6 +16,8 @@ public class Stop : CommandBase
 
     protected override Task < bool > ExecuteDeskCommand ( )
     {
-        return Manager.Desk.MoveStopAsync ( ) ;
+        return ! IsDeskValid ( )
+                   ? Task.FromResult ( false )
+                   : Manager.Desk!.MoveStopAsync ( ) ;
     }
 }

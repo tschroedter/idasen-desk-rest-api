@@ -67,9 +67,11 @@ builder.Services
         // ToHeight requires a uint (see Func<uint, ToHeight> ) ;
 
 builder.Services
+#pragma warning disable CS8621
        .AddSingleton ( provider => new Func < Up > ( provider.GetService < Up > ) )
        .AddSingleton ( provider => new Func < Down > ( provider.GetService < Down > ) )
        .AddSingleton ( provider => new Func < Stop > ( provider.GetService < Stop > ) )
+#pragma warning restore CS8621
        .AddSingleton ( ToHeightFactory ) ;
 
 builder.Services

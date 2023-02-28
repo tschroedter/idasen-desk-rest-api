@@ -16,6 +16,8 @@ public class Down : CommandBase
 
     protected override Task < bool > ExecuteDeskCommand ( )
     {
-        return Manager.Desk.MoveDownAsync ( ) ;
+        return ! IsDeskValid ( )
+                   ? Task.FromResult ( false )
+                   : Manager.Desk!.MoveDownAsync ( ) ;
     }
 }

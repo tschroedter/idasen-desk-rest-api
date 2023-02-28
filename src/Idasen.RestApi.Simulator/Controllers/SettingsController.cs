@@ -80,10 +80,9 @@ public class SettingsController : ControllerBase
         if ( id != dto.Id )
             return BadRequest ( $"Failed Ids must match ('{id}' != '{dto.Id}')" ) ;
 
-        var (status , settings) = await _repository.AddOrUpdate ( dto ) ;
+        var (status , _) = await _repository.AddOrUpdate ( dto ) ;
 
-        if ( ! status ||
-             settings == null )
+        if ( ! status )
             return StatusCode ( 500 ,
                                 $"Failed to store settings {dto}" ) ;
 

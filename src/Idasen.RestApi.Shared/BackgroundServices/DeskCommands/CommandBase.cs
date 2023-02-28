@@ -5,7 +5,7 @@ namespace Idasen.RestApi.Shared.BackgroundServices.DeskCommands ;
 
 public abstract class CommandBase : ICommand
 {
-    protected CommandBase ( ILogger         logger ,
+    protected CommandBase ( ILogger      logger ,
                             IDeskManager manager )
     {
         Guard.ArgumentNotNull ( logger ,
@@ -13,7 +13,7 @@ public abstract class CommandBase : ICommand
         Guard.ArgumentNotNull ( manager ,
                                 nameof ( manager ) ) ;
 
-        _logger = logger ;
+        Logger  = logger ;
         Manager = manager ;
     }
 
@@ -21,14 +21,14 @@ public abstract class CommandBase : ICommand
 
     public async Task < bool > Execute ( )
     {
-        _logger.LogInformation ( $"Execute command '{CommandName}'..." ) ;
+        Logger.LogInformation ( $"Execute command '{CommandName}'..." ) ;
 
         try
         {
             if ( ! Manager.IsReady )
             {
-                _logger.LogError ( $"Failed to execute command '{CommandName}' " +
-                                   "because DeskManger isn't ready" ) ;
+                Logger.LogError ( $"Failed to execute command '{CommandName}' " +
+                                  "because DeskManger isn't ready" ) ;
 
                 return false ;
             }
@@ -41,30 +41,39 @@ public abstract class CommandBase : ICommand
         }
         catch ( OperationCanceledException )
         {
-            _logger.LogInformation ( $"Executing command '{CommandName}' " +
-                                     "was cancelled" ) ;
+            Logger.LogInformation ( $"Executing command '{CommandName}' " +
+                                    "was cancelled" ) ;
 
             return false ;
         }
         catch ( Exception e )
         {
-            _logger.LogError ( e ,
-                               $"Failed to execute command '{CommandName}'" ) ;
+            Logger.LogError ( e ,
+                              $"Failed to execute command '{CommandName}'" ) ;
 
             return false ;
         }
     }
 
+    protected bool IsDeskValid()
+    {
+        if (Manager.Desk != null) return true;
+
+        Logger.LogWarning("Desk is null");
+
+        return false;
+    }
+
     private void LogStatus ( bool status )
     {
         if ( status )
-            _logger.LogInformation ( $"Executing command '{CommandName}' " +
-                                     "was successful" ) ;
+            Logger.LogInformation ( $"Executing command '{CommandName}' " +
+                                    "was successful" ) ;
         else
-            _logger.LogError ( $"Failed to execute command '{CommandName}'" ) ;
+            Logger.LogError ( $"Failed to execute command '{CommandName}'" ) ;
     }
 
     protected abstract Task < bool > ExecuteDeskCommand ( ) ;
-    private readonly   ILogger       _logger ;
+    protected readonly ILogger       Logger ;
     protected readonly IDeskManager  Manager ;
 }
