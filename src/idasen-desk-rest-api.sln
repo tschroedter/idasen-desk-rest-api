@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi.Shared", "Id
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi.Fake", "Idasen.RestApi.Fake\Idasen.RestApi.Fake.csproj", "{EDBDCA84-FE9E-4741-BA9B-448B525AA061}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Idasen.RestApi.Simulator", "Idasen.RestApi.Simulator\Idasen.RestApi.Simulator.csproj", "{7FA5D90D-B444-45F3-8D2F-883E5F84C902}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi.Simulator", "Idasen.RestApi.Simulator\Idasen.RestApi.Simulator.csproj", "{7FA5D90D-B444-45F3-8D2F-883E5F84C902}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Idasen.RestApi.Service", "Idasen.RestApi.Service\Idasen.RestApi.Service.csproj", "{42789DB8-1D68-412D-9EC9-8B5C27202F4E}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Idasen.RestApi.Service.Setup", "Idasen.RestApi.Service.Setup\Idasen.RestApi.Service.Setup.vdproj", "{1A677F87-0B5C-4DC0-AE41-FB4FE89D8876}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,12 @@ Global
 		{7FA5D90D-B444-45F3-8D2F-883E5F84C902}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7FA5D90D-B444-45F3-8D2F-883E5F84C902}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7FA5D90D-B444-45F3-8D2F-883E5F84C902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42789DB8-1D68-412D-9EC9-8B5C27202F4E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42789DB8-1D68-412D-9EC9-8B5C27202F4E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42789DB8-1D68-412D-9EC9-8B5C27202F4E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42789DB8-1D68-412D-9EC9-8B5C27202F4E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A677F87-0B5C-4DC0-AE41-FB4FE89D8876}.Debug|Any CPU.ActiveCfg = Debug
+		{1A677F87-0B5C-4DC0-AE41-FB4FE89D8876}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

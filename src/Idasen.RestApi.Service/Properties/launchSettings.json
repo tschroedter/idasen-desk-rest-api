@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Idasen.RestApi.Service": {
+      "commandName": "Project",
+      "commandLineArgs": "/Install",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true
+    }
+  }
+}
