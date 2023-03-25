@@ -1,0 +1,10 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Fragment>
+        <ComponentGroup Id="AppSettingsJson"
+                        Directory="INSTALLFOLDER">
+            <Component NeverOverwrite="yes">
+                <File Source="..\..\publish\appSettings.json" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>

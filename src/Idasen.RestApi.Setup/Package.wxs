@@ -1,0 +1,34 @@
+﻿<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+    <Package Name="Idasen REST API"
+             Manufacturer="Idasen"
+             Version="1.0.0.0"
+             UpgradeCode="83381bb3-bcb8-477d-97d7-40029722fc64">
+        <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeError)" />
+
+        <Media Id='1'
+               Cabinet='IdasenRESTAPI.cab'
+               EmbedCab='yes'
+               DiskPrompt="CD-ROM #1" />
+
+        <Property Id='DiskPrompt'
+                  Value="Idasen REST APU 0.1 Installation [1]" />
+
+        <Feature Id="Main">
+            <ComponentGroupRef Id="IdasenRestApiExe" />
+            <ComponentGroupRef Id="AppSettingsJson" />
+            <ComponentGroupRef Id="IdasenDeskJson" />
+        </Feature>
+
+        <!--
+                    <InstallExecuteSequence>
+                <Custom Action="InstallService" After="InstallFiles">
+                    NOT Installed
+                </Custom>
+                <Custom Action="UninstallService" After="InstallInitialize">
+                    REMOVE ~= "ALL" AND NOT UPGRADINGPRODUCTCODE
+                </Custom>
+            </InstallExecuteSequence>s
+
+        -->
+    </Package>
+</Wix>

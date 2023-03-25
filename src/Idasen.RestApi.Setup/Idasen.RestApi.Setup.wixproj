@@ -1,0 +1,10 @@
+﻿<Project Sdk="WixToolset.Sdk/4.0.0-rc.3">
+    <ItemGroup>
+        <PackageReference Include="WixToolset.UI.wixext" Version="4.0.0-rc.4" />
+        <PackageReference Include="WixToolset.Util.wixext" Version="4.0.0-rc.4" />
+        <PackageReference Include="WixToolset.VisualStudio.wixext" Version="4.0.0-rc.4" />
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Idasen.RESTAPI\Idasen.RestApi.csproj" />
+    </ItemGroup>
+</Project>

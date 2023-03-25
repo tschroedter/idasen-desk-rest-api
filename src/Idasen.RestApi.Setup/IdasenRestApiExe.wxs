@@ -1,0 +1,30 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:netfx="http://schemas.microsoft.com/wix/NetFxExtension">
+    <Fragment>
+        <ComponentGroup Id="IdasenRestApiExe"
+                        Directory="INSTALLFOLDER">
+            <Component>
+                <File Source="..\..\publish\Idasen.RestApi.exe" />
+                <ServiceInstall Id="Idasen REST API"
+                                Name="Idasen REST API"
+                                DisplayName="Idasen REST API"
+                                Description="Idasen REST API Host"
+                                Start="auto"
+                                Type="ownProcess"
+                                ErrorControl="normal"
+                                Account="LocalSystem"
+                                Vital="yes"
+                                Interactive="no" />
+                <ServiceControl Id="Idasen REST API"
+                                Name="Idasen REST API"
+                                Start="install"
+                                Stop="both"
+                                Remove="uninstall"
+                                Wait="yes" />
+                <ServiceConfig ServiceName="Idasen REST API"
+                               OnInstall="yes"
+                               DelayedAutoStart="yes" />
+            </Component>
+        </ComponentGroup>
+    </Fragment>
+</Wix>
