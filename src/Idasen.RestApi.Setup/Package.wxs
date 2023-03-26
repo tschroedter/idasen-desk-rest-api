@@ -18,17 +18,5 @@
             <ComponentGroupRef Id="AppSettingsJson" />
             <ComponentGroupRef Id="IdasenDeskJson" />
         </Feature>
-
-        <!--
-                    <InstallExecuteSequence>
-                <Custom Action="InstallService" After="InstallFiles">
-                    NOT Installed
-                </Custom>
-                <Custom Action="UninstallService" After="InstallInitialize">
-                    REMOVE ~= "ALL" AND NOT UPGRADINGPRODUCTCODE
-                </Custom>
-            </InstallExecuteSequence>s
-
-        -->
     </Package>
 </Wix>
