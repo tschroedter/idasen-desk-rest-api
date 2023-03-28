@@ -4,7 +4,7 @@
         <ComponentGroup Id="IdasenRestApiExe"
                         Directory="INSTALLFOLDER">
             <Component>
-                <File Source="..\..\publish\Idasen.RestApi.exe" />
+                <File Source="..\Idasen.RestApi\bin\Release\net6.0-windows10.0.19041.0\publish\win-x64\Idasen.RestApi.exe" />
                 <ServiceInstall Id="Idasen REST API"
                                 Name="Idasen REST API"
                                 DisplayName="Idasen REST API"
