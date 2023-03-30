@@ -3,7 +3,7 @@
         <ComponentGroup Id="IdasenDeskJson"
                         Directory="INSTALLFOLDER">
             <Component NeverOverwrite="yes">
-                <File Source="..\publish\idasen-desk.json" />
+                <File Source="..\..\..\publish\idasen-desk.json" />
             </Component>
         </ComponentGroup>
     </Fragment>

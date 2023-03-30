@@ -3,7 +3,7 @@
         <ComponentGroup Id="AppSettingsJson"
                         Directory="INSTALLFOLDER">
             <Component NeverOverwrite="yes">
-                <File Source="..\publish\appSettings.json" />
+                <File Source="..\..\..\publish\appSettings.json" />
             </Component>
         </ComponentGroup>
     </Fragment>
