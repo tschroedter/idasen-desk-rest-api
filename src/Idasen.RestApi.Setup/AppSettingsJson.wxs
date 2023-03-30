@@ -3,7 +3,7 @@
         <ComponentGroup Id="AppSettingsJson"
                         Directory="INSTALLFOLDER">
             <Component NeverOverwrite="yes">
-                <File Source="..\Idasen.RestApi\bin\Release\net6.0-windows10.0.19041.0\publish\win-x64\appSettings.json" />
+                <File Source="..\publish\appSettings.json" />
             </Component>
         </ComponentGroup>
     </Fragment>
