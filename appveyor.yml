@@ -29,4 +29,7 @@ after_build:
   - ps: |
       $projectFile = $env:APPVEYOR_BUILD_FOLDER + '.\src\Idasen.RestApi.Setup\Idasen.RestApi.Setup.wixproj'
       dotnet build $projectFile /p:Configuration=Release /p:BuildProjectReferences=false /t:Build
+artifacts:
+  - path: '.\src.\Idasen.RestApi.Setup\**\*.msi'
+
 
