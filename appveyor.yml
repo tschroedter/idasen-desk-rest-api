@@ -12,17 +12,14 @@ before_build:
   - pwd
   - nuget restore
   - dotnet restore
-  - Write-Host Update Version in setup...
   - $newVersion ='Version="' + $env:APPVEYOR_BUILD_VERSION +'"'
   - $content = Get-Content -Path 'Idasen.RestApi.Setup\Package.wxs'
   - $newContent = $content -replace 'Version="1.0.0.0"', $newVersion
   - $newContent | Set-Content -Path 'Idasen.RestApi.Setup\Package.wxs'
-  - Write-Host Success, updated Version in setup.
-  - dotnet publish -c Release -o .\publish --self-contained=true -p:PublishSingleFile=true -p:PublishReadyToRun=true .\Idasen.RestApi\Idasen.RestApi.csproj
+build_script:
+  - ps: dotnet publish -c Release -o .\publish --self-contained=true -p:PublishSingleFile=true -p:PublishReadyToRun=true .\Idasen.RestApi\Idasen.RestApi.csproj
 after_build:
-  - ps: Write-Host Building Setup Project......
-  - $projectFile = $env:APPVEYOR_BUILD_FOLDER + '.\src\Idasen.RestApi.Setup\Idasen.RestApi.Setup.wixproj'
-  - Write-Host $projectFile
+  - ps: $projectFile = $env:APPVEYOR_BUILD_FOLDER + '.\src\Idasen.RestApi.Setup\Idasen.RestApi.Setup.wixproj'
   - dotnet restore
   - dotnet build $projectFile /p:Configuration=Release /p:BuildProjectReferences=false /t:Build
 
